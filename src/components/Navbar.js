@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, VStack, HStack, Wrap, Image, Text, Button } from '@chakra-ui/react'
+import { HStack, Image, Text, Button } from '@chakra-ui/react'
 
 const Navbar = () => {
     return (

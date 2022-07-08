@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, VStack, HStack, Wrap, Image, Text, Button, Link } from '@chakra-ui/react'
+import { Flex, VStack, HStack, Image, Text, Link } from '@chakra-ui/react'
 import { TbExternalLink } from 'react-icons/tb'
 
 const Footer = () => {
