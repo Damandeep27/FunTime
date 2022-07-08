@@ -14,7 +14,7 @@ const fonts = {
 const styles = {
     global: (props) => ({
         body: {
-            bg: mode('linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(249,250,250,1) 100%)', 'linear-gradient(0deg, rgba(26,32,44,1) 0%, rgba(17,21,28,1) 100%)')(props),
+            bg: mode('#eeefe9', 'linear-gradient(0deg, rgba(26,32,44,1) 0%, rgba(17,21,28,1) 100%)')(props),
         }
     })
 }
@@ -26,11 +26,11 @@ const components = {
         }),
         variants: {
             primary: (props) => ({
-                bg: 'rgb(52,140,212)',
+                bg: 'rgb(245, 78, 0)',
                 _hover: {
-                    bg: 'rgb(39,107,163)',
+                    bg: 'rgb(242, 102, 36)',
                     _disabled: {
-                        bg: 'rgb(39,107,163)',
+                        bg: 'rgb(242, 102, 36)',
                     }
                 },
                 color: 'white',
@@ -45,6 +45,16 @@ const components = {
                 },
                 color: 'white',
             }),
+            transparent: (props) => ({
+                bg: 'transparent',
+                _hover: {
+                    bg: 'transparent',
+                    _disabled: {
+                        bg: 'transparent',
+                    },
+                    opacity: 0.8
+                }
+            })
         }
     },
     Tag: {
@@ -52,6 +62,11 @@ const components = {
             borderColor: mode('gray.200', 'black')(props),
         })
     },
+    Text: {
+        baseStyle: (props) => ({
+            fontSize: '10pt'
+        })
+    }
 }
 
 const theme = extendTheme({ 
