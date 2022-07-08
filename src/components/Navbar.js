@@ -1,5 +1,6 @@
 import React from 'react'
 import { HStack, Image, Text, Button } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 
 const Navbar = () => {
     return (
@@ -12,9 +13,11 @@ const Navbar = () => {
                     </Text>
                 </HStack>
                 <HStack spacing='1em'>
-                    <Button variant='transparent'>
-                        Features
-                    </Button>
+                    <RouterLink to='#features'>
+                        <Button variant='transparent'>
+                            Features
+                        </Button>
+                    </RouterLink>
                     <Button variant='primary' boxShadow='md'>
                         Get started
                     </Button>
