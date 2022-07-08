@@ -10,6 +10,11 @@
     Hangout and meet new friends in a unique way!
 </p>
 
+<p align="center">
+    <a href='https://fun--time.herokuapp.com' rel="nofollow">Visit Website</a>
+</p>
+
+
 ## Setup
 
 <a href='https://hub.docker.com/repository/docker/stephenasuncion/funtime' rel="nofollow">DockerHub: funtime</a>
