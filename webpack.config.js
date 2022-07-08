@@ -39,7 +39,6 @@ module.exports = {
             config: path.resolve(__dirname, 'src/config'),
         }
     },
-    watch: true,
     watchOptions: {
         poll: true,
         ignored: /node_modules/
