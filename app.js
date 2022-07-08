@@ -14,13 +14,13 @@ connected
 
 app.use(express.static("public"));
 app.use(express.urlencoded({extended:true}));
-app.use(express.json());//parse JSON requests made using axios
+app.use(express.json());
 
 app.get('/',(req,res)=>{
     res.send("testing0");
 });
 
-const router=require("./routes/index.js");
+const router = require("./routes/index.js");
 
 app.use('/api/v1',router);
 

@@ -1,6 +1,6 @@
 <p align="center">
     <a href='https://www.nfthost.app/' rel='nofollow'>
-        <img src='./public/logo.png' alt='FunTime Logo' style="width: 150px" />
+        <img src='./public/assets/logo.png' alt='FunTime Logo' style="width: 150px" />
     </a>
 </p>
 
