@@ -11,7 +11,7 @@ const connection = require("./connection.js");
 
 // Cors
 const corsOption = {
-    origin: ['http://localhost:3000', 'https://fun--time.herokuapp.com'],
+    origin: ['http://localhost:8080', 'https://fun--time.herokuapp.com'],
     optionsSuccessStatus: 200
 }
 
