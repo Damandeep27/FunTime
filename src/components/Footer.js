@@ -8,7 +8,7 @@ const Footer = () => {
             <Flex justifyContent='center' alignItems='center' px='1em' bg='rgb(21,21,21)' py='10em'>
                 <Flex spacing='3em' maxW='1500px' w='full' justifyContent='space-around' alignItems='center'>
                     <VStack spacing='1em' color='white'>
-                        <Image src='./assets/logo.png' alt='FunTime Logo' w='50px' />
+                        <Image src='./assets/image/logo.png' alt='FunTime Logo' w='50px' />
                         <Flex flexDir='column' alignItems='center'>
                             <Text fontSize='10pt'>
                                 Copyright © 2022 FunTime

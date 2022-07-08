@@ -7,7 +7,7 @@ const Navbar = () => {
         <nav>
             <HStack p='1.5em' justifyContent='space-between'>
                 <HStack spacing='1em'>
-                    <Image src='./assets/logo.png' alt='FunTime Logo' w='50px' />
+                    <Image src='./assets/image/logo.png' alt='FunTime Logo' w='50px' />
                     <Text fontSize='18pt'>
                         FunTime
                     </Text>

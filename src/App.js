@@ -42,14 +42,14 @@ const App = () => {
                                             </Text>
                                             <VStack alignItems='flex-start' mt='.5em'>
                                                 <Text>- Global Server</Text>
-                                                <Text>- Multiple Hangout Room</Text>
+                                                <Text>- Multiple Hangout Rooms</Text>
                                                 <Text>- Customizable Characters</Text>
                                                 <Text>- Real-time interaction with other people</Text>
                                             </VStack>
                                         </Flex>
                                     </WrapItem>
                                     <WrapItem>
-                                        <Image src='./assets/landing-feature.jpg' alt='Feature' w='330px' borderRadius='10px' boxShadow='md' />
+                                        <Image src='./assets/image/landing-feature.jpg' alt='Feature' w='330px' borderRadius='10px' boxShadow='md' />
                                     </WrapItem>
                                 </Wrap>
                             </SlideFade>
