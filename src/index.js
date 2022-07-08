@@ -1,8 +1,22 @@
-import './style.css';
+import './style.css'
+import ReactDOM from 'react-dom'
+import React from 'react'
+import App from './App.js'
+import { CoreProvider } from 'providers/CoreProvider'
+import { UserProvider } from 'providers/UserProvider'
+import { ChakraProvider } from '@chakra-ui/react'
+import theme from 'utils/theme'
 
-import ReactDOM from 'react-dom';
-import React from 'react';
+const Render = () => {
+    return (
+        <ChakraProvider theme={theme}>
+            <CoreProvider>
+                <UserProvider>
+                    <App />
+                </UserProvider>
+            </CoreProvider>
+        </ChakraProvider>
+    )
+}
 
-import App from './App.js';
-
-ReactDOM.render(<App />, document.getElementById('react-container'));
+ReactDOM.render(Render(), document.getElementById('react-container'));
