@@ -26,11 +26,11 @@ const components = {
         }),
         variants: {
             primary: (props) => ({
-                bg: 'rgb(52,140,212)',
+                bg: 'rgb(245, 78, 0)',
                 _hover: {
-                    bg: 'rgb(39,107,163)',
+                    bg: 'rgb(242, 102, 36)',
                     _disabled: {
-                        bg: 'rgb(39,107,163)',
+                        bg: 'rgb(242, 102, 36)',
                     }
                 },
                 color: 'white',
@@ -45,6 +45,16 @@ const components = {
                 },
                 color: 'white',
             }),
+            transparent: (props) => ({
+                bg: 'transparent',
+                _hover: {
+                    bg: 'transparent',
+                    _disabled: {
+                        bg: 'transparent',
+                    },
+                    opacity: 0.8
+                }
+            })
         }
     },
     Tag: {
