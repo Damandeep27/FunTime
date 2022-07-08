@@ -1,6 +1,6 @@
 const path = require('path');
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     devtool: 'source-map',
     entry: './src/index.js',
     output: {
@@ -10,22 +10,22 @@ module.exports = {
     module: {
         rules: [
             {
-                test:/\.css$/,
-                use:['style-loader', 'css-loader']
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
             },
             { test: /\.m?js$/,
                 use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['@babel/preset-env', '@babel/preset-react' ]
-                }
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react' ]
+                    }
                 }
             },
             {
                 test: /\.(jpg|png|svg)$/,
                 loader: 'url-loader',
                 options: {
-                limit: 25000,
+                    limit: 25000,
                 },
             }
         ]
@@ -40,7 +40,14 @@ module.exports = {
         }
     },
     watchOptions: {
-        poll: true,
         ignored: /node_modules/
-    }
+    },
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'public'),
+        },
+        compress: true,
+        port: 8080,
+    },
+    target: 'web'
 };
