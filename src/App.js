@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 const App = () => {
     return (
         <div>
-            <p>Test</p>
+            <h1>Test</h1>
         </div>
     )
 }
