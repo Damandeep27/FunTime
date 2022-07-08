@@ -15,13 +15,12 @@
 </p>
 
 <p align="center">
-    <a href='https://fun--time.herokuapp.com' rel="nofollow">Visit Website</a>
+    <a href='https://fun--time.herokuapp.com' target="_blank">Visit Website</a>
 </p>
-
 
 ## Setup
 
-<a href='https://hub.docker.com/repository/docker/stephenasuncion/funtime' rel="nofollow">DockerHub: funtime</a>
+<a href='https://hub.docker.com/repository/docker/stephenasuncion/funtime' target="_blank">DockerHub: funtime</a>
 
 ```
 npm i 
@@ -30,9 +29,9 @@ npm run dev
 
 ## Environment Variables
 
-| .env                 |
-| -------------------- |
-| MONGODB_URI          |
+| .env        |
+| ----------- |
+| MONGODB_URI |
 
 ## Support
 
