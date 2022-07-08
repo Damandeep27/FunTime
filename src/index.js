@@ -6,15 +6,18 @@ import { CoreProvider } from 'providers/CoreProvider'
 import { UserProvider } from 'providers/UserProvider'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from 'utils/theme'
+import { BrowserRouter } from 'react-router-dom'
 
 const Render = () => {
     return (
         <ChakraProvider theme={theme}>
-            <CoreProvider>
-                <UserProvider>
-                    <App />
-                </UserProvider>
-            </CoreProvider>
+            <BrowserRouter>
+                <CoreProvider>
+                    <UserProvider>
+                        <App />
+                    </UserProvider>
+                </CoreProvider>
+            </BrowserRouter>
         </ChakraProvider>
     )
 }
