@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "local": "nodemon app.js",
     "dev": "webpack serve --mode development --env development",
-    "watch": "webpack serve --mode development --env development",
+    "watch": "webpack --watch",
+    "build": "webpack --watch",
     "start": "node app.js"
   },
   "keywords": [],
@@ -50,6 +51,7 @@
   "devDependencies": {
     "eslint": "^8.19.0",
     "eslint-plugin-react": "^7.30.1",
+    "webpack-dev-middleware": "^5.3.3",
     "webpack-dev-server": "^4.9.3"
   }
 }
