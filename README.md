@@ -1,62 +1,34 @@
-# ToDoList
+<p align="center">
+    <a href='https://www.nfthost.app/' rel='nofollow'>
+        <img src='./public/logo.png' alt='FunTime Logo' style="width: 150px" />
+    </a>
+</p>
 
+<h1 align="center">FunTime</h1>
 
-# Website Link
-https://cpsc2600-dsingh014.herokuapp.com/
+<p align="center">
+    Hangout with your friends in a unique way!
+</p>
 
-# How to install and run
+## Setup
 
-1. Download all files on your local storage
-2. Install required dependencies by running "npm run dev"
-3. Type "localhost:8080" in your web browser to see running app
+<a href='https://hub.docker.com/repository/docker/stephenasuncion/funtime' rel="nofollow">DockerHub: funtime</a>
 
-# Description
-This app helps creating Todo list in detail. You could have main task and some subtasks under the main task. nce you complete each subtask, click checkbox. It will be removed from list. When all subtasks are finished, means you have completed all required tasks and you could delete the main task.
+```
+npm i 
+npm run dev
+```
 
-# Highlights
-1. Choosing number of subtasks and displaying corressponding nuumber of fields
+## Environment Variables
 
-2. Validating that each field contain required data
-3. Deleting subtask document and that subtask from the main task document
-4. Updating task as subtasks get completed
+| .env                 |
+| -------------------- |
+| MONGODB_URI          |
 
-# How it works
-1. Write name of task.
-2. Write description which should be atleast characters long.
-3. Choose priority.
-4. Select number of subtasks between 0 and 5. Depending on selection, the number of fields will be appeared. Fill fields and click add task button.
-5. if there will be no error, the task will be displayed under my tasks.
+## Support
 
-6. There will task name, description and some subtasks having checkboxes. Click on checkbox after you completed subtask. It will delete subtask from list. when there will be no subtask left, you will get delete button to delete the task.
+If you need help with anything please contact us on Slack @sasuncion02 or @Damandeep Singh
 
+## License
 
-
-# API endpoints
-
-1. get('api/v1/tasks) returns all tasks
-2. get('api/v1/tasks/id) returns the task with id supplied in url
-3. get('api/v1/subtasks) returns all subtasks
-4. get('api/v1/subtasks/id) returns the subtask with id supplied in url
-5. post('api/v1/tasks) post a task
-6. post('api/v1/subtasks) post a subtask
-7. delete('api/v1/tasks/id) delete the task with the given id
-7. delete('api/v1/subtasks/id) delete the subtask with the given id
-8. put('api/v1/tasks/id) updates the task with the given id
-
-Expected Post body format: 
-
-1. Task
-{
-     data:task,
-     url:`/api/v1/tasks/${task._id}`
-}
-2. Subtask
-{
-     data:subtask,
-     url:`/api/v1/subtasks/${task._id}`
-}
-
-
-
-
-
+[Apache License Version 2.0](https://github.com/Damandeep27/FunTime/blob/main/LICENSE)
