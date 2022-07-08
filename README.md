@@ -7,7 +7,7 @@
 <h1 align="center">FunTime</h1>
 
 <p align="center">
-    Hangout with your friends in a unique way!
+    Hangout and meet new friends in a unique way!
 </p>
 
 ## Setup
