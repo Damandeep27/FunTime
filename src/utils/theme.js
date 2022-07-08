@@ -62,6 +62,11 @@ const components = {
             borderColor: mode('gray.200', 'black')(props),
         })
     },
+    Text: {
+        baseStyle: (props) => ({
+            fontSize: '10pt'
+        })
+    }
 }
 
 const theme = extendTheme({ 
