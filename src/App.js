@@ -1,5 +1,7 @@
 import React from 'react'
-import { Flex, HStack, Text, Button, SlideFade, Box, Link, Wrap, Image, VStack, WrapItem } from '@chakra-ui/react'
+import { Flex, HStack, Text, Button, SlideFade, Box, 
+    Link, Wrap, Image, VStack, WrapItem
+} from '@chakra-ui/react'
 import Navbar from 'components/Navbar'
 import Footer from './components/Footer'
 
