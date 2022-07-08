@@ -7,6 +7,10 @@
 <h1 align="center">FunTime</h1>
 
 <p align="center">
+    <img src='https://github.com/Damandeep27/FunTime/actions/workflows/docker-deployment.yml/badge.svg' alt='Docker Deployment'>
+</p>
+
+<p align="center">
     Hangout and meet new friends in a unique way!
 </p>
 
