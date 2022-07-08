@@ -1,8 +1,9 @@
 // Dependencies
 require("dotenv").config();
 const express = require("express");
-const app = express();
+const cors = require('cors');
 const router = require("./routes/index.js");
+const app = express();
 const { errorHandler } = require('#middlewares/errorHandler.js');
 
 // Database
