@@ -1,4 +1,5 @@
 const path = require('path');
+
 module.exports = {
     mode: 'development',
     devtool: 'source-map',
@@ -48,6 +49,10 @@ module.exports = {
         },
         compress: true,
         port: 8080,
+        devMiddleware: {
+            publicPath: path.join(__dirname, 'public'),
+            writeToDisk: true
+        }
     },
     target: 'web'
 };
