@@ -1,3 +1,5 @@
 .c9
 .env
 node_modules
+builds
+public/assets/js/main*

@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -6,8 +7,14 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'public')
+        path: path.resolve(__dirname, 'public/assets/js')
     },
+    // plugins: [
+    //     new CopyWebpackPlugin([
+    //         { from: 'public/assets/js', to: 'assets/js' }, // Copies webworkers
+    //         { from: 'public/_redirects', to: '_redirects' }
+    //     ])
+    // ],
     module: {
         rules: [
             {
@@ -50,8 +57,8 @@ module.exports = {
         compress: true,
         port: 8080,
         devMiddleware: {
-            publicPath: path.join(__dirname, 'public'),
-            writeToDisk: true
+            publicPath: path.join(__dirname, 'public/assets/js'),
+            writeToDisk: true,
         }
     },
     target: 'web'
