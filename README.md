@@ -20,8 +20,15 @@
 
 ## Setup
 
-<a href='https://hub.docker.com/repository/docker/stephenasuncion/funtime' target="_blank">DockerHub: funtime</a>
+<a href='https://hub.docker.com/repository/docker/stephenasuncion/funtime' target="_blank">Docker Hub Repository: funtime</a>
 
+Installation with Docker Hub:
+```
+docker pull stephenasuncion/funtime:main
+docker container run --name web -p 8080:8080 stephenasuncion/funtime:main
+```
+
+Installation with Node.js:
 ```
 npm i 
 npm run dev
