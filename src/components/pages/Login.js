@@ -10,7 +10,7 @@ const Login = () => {
     return (
         <div>
             <Box style={{ minHeight: '100vh' }}>
-                <Navbar />
+                <Navbar isLoginPage />
                 <main>
                     <Flex justifyContent='center' alignItems='center'>
                         <Flex flexDir='column' alignItems='center' h='full' justifyContent='center' maxW='1200px' w='full'>
