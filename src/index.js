@@ -1,25 +1,24 @@
 import './style.css'
-import ReactDOM from 'react-dom'
 import React from 'react'
 import App from './App.js'
 import { CoreProvider } from 'providers/CoreProvider'
 import { UserProvider } from 'providers/UserProvider'
 import { ChakraProvider } from '@chakra-ui/react'
-import theme from 'utils/theme'
 import { BrowserRouter } from 'react-router-dom'
+import { createRoot } from 'react-dom/client'
+import theme from 'utils/theme'
 
-const Render = () => {
-    return (
-        <ChakraProvider theme={theme}>
-            <BrowserRouter>
-                <CoreProvider>
-                    <UserProvider>
-                        <App />
-                    </UserProvider>
-                </CoreProvider>
-            </BrowserRouter>
-        </ChakraProvider>
-    )
-}
+const container = document.getElementById('app');
+const root = createRoot(container);
 
-ReactDOM.render(Render(), document.getElementById('react-container'));
+root.render((
+    <ChakraProvider theme={theme}>
+        <BrowserRouter>
+            <CoreProvider>
+                <UserProvider>
+                    <App />
+                </UserProvider>
+            </CoreProvider>
+        </BrowserRouter>
+    </ChakraProvider>
+));

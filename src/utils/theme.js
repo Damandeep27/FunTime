@@ -33,7 +33,7 @@ const components = {
                         bg: 'rgb(242, 102, 36)',
                     }
                 },
-                color: 'white',
+                color: 'white'
             }),
             danger: (props) => ({
                 bg: 'red.500',
