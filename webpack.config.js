@@ -52,7 +52,8 @@ module.exports = {
         devMiddleware: {
             publicPath: path.join(__dirname, 'public/assets/js'),
             writeToDisk: true,
-        }
+        },
+        historyApiFallback: true
     },
     target: 'web'
 };
