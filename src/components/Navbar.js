@@ -1,11 +1,11 @@
 import React from 'react'
 import { HStack, Image, Text, Button } from '@chakra-ui/react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouteLink } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ isLoginPage }) => {
     return (
         <nav>
-            <HStack p='1.5em' justifyContent='space-between'>
+            <HStack p='1.5em' justifyContent='space-between' px='3em'>
                 <HStack spacing='1em'>
                     <Image src='./assets/image/logo.png' alt='FunTime Logo' w='50px' />
                     <Text fontSize='18pt'>
@@ -13,14 +13,20 @@ const Navbar = () => {
                     </Text>
                 </HStack>
                 <HStack spacing='1em'>
-                    <RouterLink to='#features'>
-                        <Button variant='transparent'>
-                            Features
-                        </Button>
-                    </RouterLink>
-                    <Button variant='primary' boxShadow='md'>
-                        Get started
-                    </Button>
+                    {!isLoginPage && (
+                        <>
+                        <RouteLink to='#features'>
+                            <Button variant='transparent'>
+                                Features
+                            </Button>
+                        </RouteLink>
+                        <RouteLink to='/login'>
+                            <Button variant='primary' boxShadow='md'>
+                                Get started
+                            </Button>
+                        </RouteLink>
+                        </>
+                    )}
                 </HStack>
             </HStack>
         </nav>
