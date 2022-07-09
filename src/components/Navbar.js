@@ -5,7 +5,7 @@ import { Link as RouterLink } from 'react-router-dom'
 const Navbar = () => {
     return (
         <nav>
-            <HStack p='1.5em' justifyContent='space-between'>
+            <HStack p='1.5em' justifyContent='space-between' px='3em'>
                 <HStack spacing='1em'>
                     <Image src='./assets/image/logo.png' alt='FunTime Logo' w='50px' />
                     <Text fontSize='18pt'>
