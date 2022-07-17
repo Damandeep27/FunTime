@@ -1,42 +1,36 @@
 import React from 'react'
 import { Flex, HStack, Text, Button, Box, 
-    VStack, Input, InputGroup, InputLeftElement
+    VStack, Input, InputGroup, InputLeftElement, Image
 } from '@chakra-ui/react'
 import Navbar from 'components/Navbar'
 import Footer from 'components/Footer'
+import { Link as RouteLink } from 'react-router-dom'
 import { MdOutlineEmail, MdLockOutline } from 'react-icons/md'
 
 const Login = () => {
     return (
         <div>
             <Box style={{ minHeight: '100vh' }}>
-                <Navbar isLoginPage />
+                <Navbar />
                 <main>
                     <Flex justifyContent='center' alignItems='center'>
                         <Flex flexDir='column' alignItems='center' h='full' justifyContent='center' maxW='1200px' w='full'>
                             <Flex flexDir='column' bg='white' boxShadow='md' p='2em' maxW='500px' w='full' borderRadius='10px' mt='10em'>
+                                <VStack>
                                 <Text fontSize='16pt'>
-                                    Login
+                                    Sign in with
                                 </Text>
-                                <VStack mt='1.5em' spacing='.5em'>
-                                    <InputGroup>
-                                        <InputLeftElement pointerEvents='none'>
-                                            <MdOutlineEmail />
-                                        </InputLeftElement>
-                                        <Input type='Email' placeholder='Email'></Input>
-                                    </InputGroup>
-                                    <InputGroup>
-                                        <InputLeftElement pointerEvents='none'>
-                                            <MdLockOutline />
-                                        </InputLeftElement>
-                                        <Input type='password' placeholder='Password'></Input>
-                                    </InputGroup>
+                                <Image src='./assets/image/google.png' alt='FunTime Logo' w='50px' />
+
                                 </VStack>
-                                <HStack mt='1em' justifyContent='flex-end'>
-                                    <Button variant='primary' size='sm'>
-                                        Login
+                                
+                                <VStack mt='2em'>
+                                <RouteLink to='/game'>
+                                    <Button variant='primary' size='md'>
+                                        Sign in
                                     </Button>
-                                </HStack>
+                                </RouteLink>
+                                </VStack>
                             </Flex>
                         </Flex>
                     </Flex>
