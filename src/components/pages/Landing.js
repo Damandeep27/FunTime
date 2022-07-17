@@ -10,7 +10,7 @@ const Landing = () => {
     return (
         <div>
             <Box style={{ minHeight: '100vh' }}>
-                <Navbar />
+                <Navbar Page="main"/>
                 <main>
                     <Flex justifyContent='center' w='full'>
                         <Flex flexDir='column' alignItems='center' h='full' justifyContent='center' maxW='1200px' w='full'>
