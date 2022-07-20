@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, InputGroup, InputRightElement, Input, Drawer, 
     DrawerBody, DrawerContent, DrawerCloseButton, DrawerFooter, 
-    DrawerHeader, DrawerOverlay, List, ListItem
+    DrawerHeader, DrawerOverlay, List, ListItem, Tag, TagLabel,
+    Text
 } from '@chakra-ui/react'
 import { useCore } from 'providers/CoreProvider'
 import { useChat } from 'hooks/useChat'
@@ -26,9 +27,22 @@ const Chat = ({ isOpen, onClose }) => {
             <DrawerOverlay />
             <DrawerContent>
                 <DrawerCloseButton />
-                <DrawerHeader>Chat</DrawerHeader>
+                <DrawerHeader display='flex' alignItems='center' gap={4}>
+                    Chat
+                    <Tag>
+                        <TagLabel>
+                            Server: Global
+                        </TagLabel>
+                    </Tag>
+                </DrawerHeader>
                 <DrawerBody>
-                    <List spacing={3}>
+                    <List 
+                        spacing={3}
+                        p='.5em'
+                        bg='gray.100'
+                        borderRadius='10px'
+                        h='full'
+                    >
                         <ListItem>
                             Stephen: Hello world!
                         </ListItem>
