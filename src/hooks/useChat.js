@@ -1,19 +1,20 @@
 import { useState } from 'react'
 import { useToast } from '@chakra-ui/react'
+import { useCore } from 'providers/CoreProvider'
 
 export const useChat = () => {
     const toast = useToast();
     const [isSending, setIsSending] = useState();
-    const [message, setMessage] = useState('');
+    const { messageInput, setMessageInput } = useCore();
 
     const SendMessage = async () => {
         try {
-            if (message.trim().length === 0) return;
+            if (messageInput.trim().length === 0) return;
 
             setIsSending(true);
 
             
-            setMessage('');
+            setMessageInput('');
             setIsSending(false);
         }
         catch (err) {
@@ -32,8 +33,6 @@ export const useChat = () => {
 
     return {
         SendMessage,
-        isSending,
-        message,
-        setMessage
+        isSending
     }
 }

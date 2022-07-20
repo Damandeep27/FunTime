@@ -1,18 +1,21 @@
 import React from 'react'
 import { Button, InputGroup, InputRightElement, Input, Drawer, 
     DrawerBody, DrawerContent, DrawerCloseButton, DrawerFooter, 
-    DrawerHeader, DrawerOverlay, List, ListIcon, ListItem
+    DrawerHeader, DrawerOverlay, List, ListItem
 } from '@chakra-ui/react'
-import { Link as RouteLink } from 'react-router-dom'
+import { useCore } from 'providers/CoreProvider'
 import { useChat } from 'hooks/useChat'
 
 const Chat = ({ isOpen, onClose }) => {
     const { 
         isSending, 
-        SendMessage, 
-        message, 
-        setMessage 
+        SendMessage
     } = useChat();
+    const { 
+        messages,
+        messageInput, 
+        setMessageInput
+    } = useCore();
 
     return (
         <Drawer
@@ -40,8 +43,8 @@ const Chat = ({ isOpen, onClose }) => {
                             pr='4.5rem'
                             type='text'
                             placeholder='Type here...'
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
+                            value={messageInput}
+                            onChange={(e) => setMessageInput(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && SendMessage()}
                         />
                         <InputRightElement width='4.5rem'>
