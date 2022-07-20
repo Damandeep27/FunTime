@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require('cors');
 const router = require("./routes/index.js");
 const app = express();
+const socket = require("socket.io");
 const { errorHandler } = require('#middlewares/errorHandler.js');
 
 // Database
@@ -36,10 +37,27 @@ app.use(express.json());
 app.use('/api', router);
 app.use(errorHandler);
 
-// Connection
+// Connections
 connection.once('open', () => {
     console.log("[FunTime] Connected to MongoDB")
-    app.listen(process.env.PORT || 8080, () => {
+
+    const server = app.listen(process.env.PORT || 8080, () => {
         console.log(`[FunTime] listening at http://localhost:${process.env.PORT || 8080}`)
     })
+
+    const io = socket(server);
+
+    // Web Socket Connection
+    io.on('connection', (socket) => {
+        //const userId = socket.handshake.query.userId;
+        console.log(`[FunTime] user connected`);
+
+        socket.on('send-message', ({ messageData }) => {
+            io.emit('receive-message', messageData);
+        })
+
+        socket.on('disconnect', () => {
+            console.log(`[FunTime] user disconnected`);
+        });
+    });
 });
