@@ -50,14 +50,14 @@ connection.once('open', () => {
     // Web Socket Connection
     io.on('connection', (socket) => {
         //const userId = socket.handshake.query.userId;
-        console.log(`user connected`);
+        console.log(`[FunTime] user connected`);
 
         socket.on('send-message', ({ messageData }) => {
             io.emit('receive-message', messageData);
         })
 
         socket.on('disconnect', () => {
-            console.log(`user disconnected`);
+            console.log(`[FunTime] user disconnected`);
         });
     });
 });
