@@ -37,17 +37,30 @@ const Landing = () => {
                                 </Flex>
                             </SlideFade>
                             <SlideFade in={true} offsetY='-20px' delay={.75} style={{ width: '100%' }}>
-                                <Wrap direction='row' spacing='4em' justify='space-between' my='20em' id='features'>
+                                <Wrap 
+                                    id='features'
+                                    direction='row' 
+                                    spacing='4em' 
+                                    justify='space-between' 
+                                    my='20em'
+                                    bg='rgb(230,230,230)'
+                                    p='2em'
+                                    borderRadius='10px'
+                                    boxShadow='sm'
+                                >
                                     <WrapItem>
                                         <Flex flexDir='column'>
+                                            <Text fontSize='12pt' fontWeight='bold' color='orange.500'>
+                                                List of features
+                                            </Text>
                                             <Text fontSize='28pt' fontWeight='bold'>
                                                 Features
                                             </Text>
                                             <VStack alignItems='flex-start' mt='.5em'>
-                                                <Text>- Global Server</Text>
-                                                <Text>- Multiple Hangout Rooms</Text>
-                                                <Text>- Customizable Characters</Text>
-                                                <Text>- Real-time interaction with other people</Text>
+                                                <Text>Global Server</Text>
+                                                <Text>Multiple Hangout Rooms</Text>
+                                                <Text>Customizable Characters</Text>
+                                                <Text>Real-time interaction with other people</Text>
                                             </VStack>
                                         </Flex>
                                     </WrapItem>
