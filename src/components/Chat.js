@@ -4,8 +4,16 @@ import { Button, InputGroup, InputRightElement, Input, Drawer,
     DrawerHeader, DrawerOverlay, List, ListIcon, ListItem
 } from '@chakra-ui/react'
 import { Link as RouteLink } from 'react-router-dom'
+import { useChat } from 'hooks/useChat'
 
 const Chat = ({ isOpen, onClose }) => {
+    const { 
+        isSending, 
+        SendMessage, 
+        message, 
+        setMessage 
+    } = useChat();
+
     return (
         <Drawer
             isOpen={isOpen}
@@ -32,9 +40,19 @@ const Chat = ({ isOpen, onClose }) => {
                             pr='4.5rem'
                             type='text'
                             placeholder='Type here...'
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && SendMessage()}
                         />
                         <InputRightElement width='4.5rem'>
-                            <Button h='1.75rem' size='sm'>
+                            <Button 
+                                h='1.75rem' 
+                                size='sm' 
+                                disabled={isSending}
+                                isLoading={isSending}
+                                loadingText='Sending'
+                                onClick={SendMessage}
+                            >
                                 Send
                             </Button>
                         </InputRightElement>
