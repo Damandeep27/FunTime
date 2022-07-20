@@ -6,12 +6,12 @@ export const CoreContext = createContext({})
 export const useCore = () => useContext(CoreContext)
 
 export const CoreProvider = ({ children }) => {
-    const [messages, setMessage] = useState([]);
+    const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState('');
 
     const controllers = {
         messages,
-        setMessage,
+        setMessages,
         messageInput,
         setMessageInput,
         socket

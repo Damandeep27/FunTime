@@ -1,16 +1,18 @@
 import React from 'react'
 import { Button, InputGroup, InputRightElement, Input, Drawer, 
     DrawerBody, DrawerContent, DrawerCloseButton, DrawerFooter, 
-    DrawerHeader, DrawerOverlay, List, ListItem, Tag, TagLabel,
-    Text
+    DrawerHeader, DrawerOverlay, Tag, TagLabel, Flex
 } from '@chakra-ui/react'
+import { FixedSizeList } from 'react-window'
 import { useCore } from 'providers/CoreProvider'
 import { useChat } from 'hooks/useChat'
+import AutoSizer from 'components/AutoSizer'
 
 const Chat = ({ isOpen, onClose }) => {
     const { 
         isSending, 
-        SendMessage
+        SendMessage,
+        chatMessagesRef
     } = useChat();
     const { 
         messages,
@@ -36,20 +38,20 @@ const Chat = ({ isOpen, onClose }) => {
                     </Tag>
                 </DrawerHeader>
                 <DrawerBody>
-                    <List 
-                        spacing={3}
-                        p='.5em'
-                        bg='gray.100'
-                        borderRadius='10px'
-                        h='full'
-                    >
-                        <ListItem>
-                            Stephen: Hello world!
-                        </ListItem>
-                        <ListItem>
-                            Daman: Hello world!
-                        </ListItem>
-                    </List>
+                    <AutoSizer>
+                        {({ width, height }) => (
+                            <FixedSizeList
+                                width={width}
+                                height={height}
+                                itemSize={40} 
+                                itemCount={messages?.length} 
+                                itemData={{ messages }}
+                                outerRef={chatMessagesRef}
+                            >
+                                {Row}
+                            </FixedSizeList>
+                        )}
+                    </AutoSizer>
                 </DrawerBody>
                 <DrawerFooter>
                     <InputGroup size='md'>
@@ -77,6 +79,16 @@ const Chat = ({ isOpen, onClose }) => {
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>
+    )
+}
+
+const Row = ({ index, style, data } ) => {
+    const currentMsg = data.messages[index];
+
+    return (
+        <Flex key={index} style={style}>
+            {currentMsg.author}: {currentMsg.message}
+        </Flex>
     )
 }
 
