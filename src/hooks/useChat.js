@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useCore } from 'providers/CoreProvider'
+import { useUser } from 'providers/UserProvider'
 
 export const useChat = () => {
     const toast = useToast();
     const [isSending, setIsSending] = useState();
-    const { messageInput, setMessageInput } = useCore();
+    const { socket, messageInput, setMessageInput } = useCore();
+    // const { } = useUser();
 
     const SendMessage = async () => {
         try {
@@ -13,6 +15,12 @@ export const useChat = () => {
 
             setIsSending(true);
 
+            const messageData = {
+                author: 'Stephen',
+                message: messageInput,
+            }
+
+            socket.emit('send-message', { messageData });
             
             setMessageInput('');
             setIsSending(false);
