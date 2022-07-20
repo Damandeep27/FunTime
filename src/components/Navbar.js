@@ -2,7 +2,8 @@ import React from 'react'
 import { HStack, Image, Text, Button } from '@chakra-ui/react'
 import { Link as RouteLink } from 'react-router-dom'
 
-const Navbar = ({ isLoginPage }) => {
+const Navbar = (props) => {
+    
     return (
         <nav>
             <HStack p='1.5em' justifyContent='space-between' px='3em'>
@@ -15,7 +16,8 @@ const Navbar = ({ isLoginPage }) => {
                     </HStack>
                 </RouteLink>
                 <HStack spacing='1em'>
-                    {!isLoginPage && (
+              
+                    {props.Page=="main" && (
                         <>
                         <RouteLink to='#features'>
                             <Button variant='transparent'>
@@ -29,6 +31,22 @@ const Navbar = ({ isLoginPage }) => {
                         </RouteLink>
                         </>
                     )}
+
+                    {props.Page=="game" && (
+                        <>
+                        
+                            <Button onClick={props.onOpen} variant='primary' boxShadow='md'>
+                                Chat
+                            </Button>
+                       
+                        
+                        </>
+                    )}
+
+                    
+
+
+
                 </HStack>
             </HStack>
         </nav>
