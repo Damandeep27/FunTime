@@ -6,12 +6,14 @@ const Navbar = ({ isLoginPage }) => {
     return (
         <nav>
             <HStack p='1.5em' justifyContent='space-between' px='3em'>
-                <HStack spacing='1em'>
-                    <Image src='./assets/image/logo.png' alt='FunTime Logo' w='50px' />
-                    <Text fontSize='18pt'>
-                        FunTime
-                    </Text>
-                </HStack>
+                <RouteLink to='/'>
+                    <HStack spacing='1em' cursor='pointer'>
+                        <Image src='./assets/image/logo.png' alt='FunTime Logo' w='50px' />
+                        <Text fontSize='18pt'>
+                            FunTime
+                        </Text>
+                    </HStack>
+                </RouteLink>
                 <HStack spacing='1em'>
                     {!isLoginPage && (
                         <>
