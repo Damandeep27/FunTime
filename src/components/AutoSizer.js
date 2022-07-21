@@ -1,16 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import { Box } from '@chakra-ui/react'
 
 const AutoSizer = ({ children, className, style }) => {
     const [childParams, setChildParams] = useState({ width: 0, height: 0 });
     const parentRef = useRef();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!parentRef) return;
-        setChildParams({
-            width: parentRef.current.clientWidth,
-            height: parentRef.current.clientHeight
-        })
+        const updateSize = () => {
+            setChildParams({
+                width: parentRef.current.clientWidth,
+                height: parentRef.current.clientHeight
+            })
+        }
+        updateSize();
+        window.addEventListener('resize', updateSize);
+        return () => window.removeEventListener('resize', updateSize);
     }, [parentRef])
 
     return (
@@ -19,6 +24,7 @@ const AutoSizer = ({ children, className, style }) => {
             className={className}
             style={{...style}}
             h='full'
+            flex='1'
         >
             {children(childParams)}
         </Box>
