@@ -1,5 +1,6 @@
 // Dependencies
 const dotenv = require("dotenv").config();
+const path = require('path');
 const express = require("express");
 const cors = require('cors');
 const router = require("./routes/index.js");
@@ -36,6 +37,10 @@ app.use(express.urlencoded({ extended:true }));
 app.use(express.json());
 app.use('/api', router);
 app.use(errorHandler);
+
+app.get('*', function (request, response){
+    response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
 
 // Connections
 connection.once('open', () => {
