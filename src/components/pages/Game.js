@@ -7,6 +7,7 @@ import { Flex, Heading,HStack, Text, Button, SlideFade, Box,
     DrawerFooter, DrawerHeader, DrawerOverlay
 } from '@chakra-ui/react'
 import { useCore } from 'providers/CoreProvider'
+import { useGame } from 'hooks/useGame'
 import Navbar from 'components/Navbar'
 import Footer from 'components/Footer'
 import Chat from 'components/Chat'
@@ -16,6 +17,7 @@ import { Link as RouteLink } from 'react-router-dom'
 const Game = () => {
     const { canvasRef } = useCore();
     const { isOpen: isChatOpen, onOpen: onChat, onClose: onChatClose } = useDisclosure();
+    useGame();
 
     return (
         <div>
