@@ -6,23 +6,35 @@ import { Flex, Heading,HStack, Text, Button, SlideFade, Box,
     Input, Drawer, DrawerBody, DrawerContent, DrawerCloseButton, 
     DrawerFooter, DrawerHeader, DrawerOverlay
 } from '@chakra-ui/react'
+import { useCore } from 'providers/CoreProvider'
 import Navbar from 'components/Navbar'
 import Footer from 'components/Footer'
 import Chat from 'components/Chat'
+import AutoSizer from 'components/AutoSizer'
 import { Link as RouteLink } from 'react-router-dom'
 
 const Game = () => {
+    const { canvasRef } = useCore();
     const { isOpen: isChatOpen, onOpen: onChat, onClose: onChatClose } = useDisclosure();
 
     return (
         <div>
-            <Box style={{ minHeight: '100vh' }}>
+            <Flex minH='100vh' flexDir='column'>
                 <Navbar page='game' onChat={onChat} />
                 <Chat isOpen={isChatOpen} onClose={onChatClose} />
-                <main>
-                    
+                <main style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
+                    <AutoSizer>
+                        {({ width, height }) => (
+                            <canvas
+                                id='game-display'
+                                ref={canvasRef}
+                                width={width}
+                                height={height}
+                            />
+                        )}
+                    </AutoSizer>
                 </main>
-            </Box>
+            </Flex>
             <Footer />
         </div>
     )
