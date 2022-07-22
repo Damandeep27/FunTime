@@ -35,6 +35,9 @@ module.exports = (io) => {
 
         if (!player) return;
 
+        player.viewport.width = width;
+        player.viewport.height = height;
+
         if (up && !player.isJumping) {
             player.dY -= gamePhysics.jumpVelocity;
             player.isJumping = true;
