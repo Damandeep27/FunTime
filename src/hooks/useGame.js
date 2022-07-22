@@ -255,12 +255,14 @@ export const useGame = () => {
         }
     }
 
-    // Player movement socket
+    // Player movement socket and viewport update
     setInterval(() => {
         try {
+            socket.emit('move-player', keyStateObj);
+
+            if (!canvasRef.current) return;
             keyStateObj.viewport.width = canvasRef?.current.clientWidth;
             keyStateObj.viewport.height = canvasRef?.current.clientHeight;
-            socket.emit('move-player', keyStateObj);
         }
         catch (err) {
             console.error(err);
