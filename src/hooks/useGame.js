@@ -22,7 +22,7 @@ export const useGame = () => {
         ctxRef
     } = useCore();
     const { playerId } = useUser();
-    const [players, setPlayers] = useState([]);
+    const [players, setPlayers] = useState();
 
     // Player Class
     class Player {
@@ -39,7 +39,7 @@ export const useGame = () => {
             this.isJumping = isJumping;
             this.dir = dir;
         }
-    
+
         draw(ctx) {
             ctx.font = '36px Poppins';
             ctx.textAlign = 'center';
@@ -51,7 +51,7 @@ export const useGame = () => {
         }
     }
 
-    // Render Game Graphics and Game Logic
+    // Render Game Graphics
     useLayoutEffect(() => {
         if (!canvasRef, !players) return;
 
@@ -62,10 +62,6 @@ export const useGame = () => {
         const render = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            const pIdx = players.map((player) => player.id).indexOf(playerId);
-            if (pIdx === -1) return;
-            socket.emit('update-player', { keys: keyStateObj, player: players[pIdx] });
-
             RenderPlayers(ctx);
             requestAnimationFrame(render);
         }
@@ -75,16 +71,15 @@ export const useGame = () => {
 
     }, [canvasRef, players])
 
+    // Add player on user join
     useEffect(() => {
         if (!socket) return;
 
         const emojiArr = [...'😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉'];
-        const emoji = emojiArr[Math.floor(Math.random() * emojiArr.length)];
-
-        const playerData = { 
-            id: playerId, 
+        const emoji = emojiArr[Math.floor(Math.random() * emojiArr.length)];   
+        const newPlayer = {
             name: 'Stephen', 
-            emoji: emoji,
+            emoji,
             x: 48,
             y: 48,
             dX: 10, 
@@ -93,31 +88,31 @@ export const useGame = () => {
             dir: 0
         }
 
-        socket.emit('add-player', { playerData });
-        
+        socket.emit('add-player', newPlayer);
+
     }, [socket])
 
     // Add player on user join
     useEffect(() => {
-        if (!socket || !players) return;
+        if (!socket) return;
 
         socket.on('add-player', (playerData) => {
             AddPlayer(playerData);
         })
 
-        return () => socket.off('add-player')
-    }, [socket, players])
+        return () => socket.off('add-player');
+    }, [socket])
 
     // Update Player Socket Listener
-    useEffect(() => {
-        if (!socket || !players) return;
+    // useEffect(() => {
+    //     if (!socket || !players) return;
 
-        socket.on('update-player', (playerData) => {
-            UpdatePlayer(playerData);
-        });
+    //     socket.on('update-players', (playersObj) => {
+    //         UpdatePlayers(playersObj);
+    //     });
 
-        return () => socket.off('update-player')
-    }, [socket, players])
+    //     return () => socket.off('update-players')
+    // }, [socket, players])
 
     // Remove Player Socket Listener
     useEffect(() => {
@@ -130,10 +125,10 @@ export const useGame = () => {
         return () => socket.off('remove-player')
     }, [socket, players])
 
-    // Key Down Listerner
+    // Key Down Listener
     useEffect(() => {
         const keyListener = (e) => {
-            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') e.preventDefault();
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === ' ') e.preventDefault();
             if (Object.keys(keyStateObj).indexOf(e.key) === -1) return;
 
             keyStateObj[e.key] = true;
@@ -142,7 +137,7 @@ export const useGame = () => {
         return () => window.removeEventListener('keydown', keyListener);
     }, [])
 
-    // Key Up Listerner
+    // Key Up Listener
     useEffect(() => {
         const keyListener = (e) => {
             if (Object.keys(keyStateObj).indexOf(e.key) === -1) return;
@@ -155,12 +150,15 @@ export const useGame = () => {
 
     /**
      * Creates a new player
-     * @param {*} playerData object data of player
+     * @param {*} playerData object data of new player
      */
     const AddPlayer = (playerData) => {
         try {
-            const newPlayer = new Player(playerData);
-            setPlayers((prevState) => prevState.concat(newPlayer))
+            setPlayers((prevState) => {
+                const newPlayers = { ...prevState };
+                newPlayers[playerData.id] = new Player(playerData);
+                return newPlayers;
+            });
         }
         catch (err) {
             console.error(err);
@@ -173,7 +171,7 @@ export const useGame = () => {
      */
     const RenderPlayers = (ctx) => {
         try {
-            players.forEach((player) => {
+            Object.values(players).forEach((player) => {
                 player.draw(ctx);
             })
         }
@@ -183,23 +181,24 @@ export const useGame = () => {
     }
 
     /**
-     * Updates player's coordinates on canvas
-     * @param {*} playerData object data of player
+     * Updates all player's coordinates on canvas
+     * @param {*} playersObj object of players
      */
-    const UpdatePlayer = (playerData) => {
+    const UpdatePlayers = (playersObj) => {
         try {
-            const { id, x, y, dX, dY, isJumping, dir, socketId } = playerData;
-            const pIdx = players.map((player) => player.id ).indexOf(id);
-    
-            if (pIdx === -1) return;
+            //const { id, x, y, dX, dY, isJumping, dir, socketId } = playerData;
 
-            players[pIdx].x = x;
-            players[pIdx].y = y;
-            players[pIdx].dX = dX;
-            players[pIdx].dY = dY;
-            players[pIdx].isJumping = isJumping;
-            players[pIdx].dir = dir;
-            players[pIdx].socketId = socketId;
+            // const pIdx = players.map((player) => player.id ).indexOf(id);
+    
+            // if (pIdx === -1) return;
+
+            // players[pIdx].x = x;
+            // players[pIdx].y = y;
+            // players[pIdx].dX = dX;
+            // players[pIdx].dY = dY;
+            // players[pIdx].isJumping = isJumping;
+            // players[pIdx].dir = dir;
+            // players[pIdx].socketId = socketId;
         }
         catch (err) {
             console.error(err);
@@ -213,7 +212,9 @@ export const useGame = () => {
     const RemovePlayer = (socketId) => {
         try {
             setPlayers((prevState) => {
-                return prevState.filter((pData) => pData.socketId !== socketId)
+                const newPlayers = {...prevState};
+                delete newPlayers[socketId];
+                return newPlayers;
             })
         }
         catch (err) {
@@ -224,7 +225,7 @@ export const useGame = () => {
     return {
         AddPlayer,
         RenderPlayers,
-        UpdatePlayer,
+        UpdatePlayers,
         RemovePlayer
     }
 }
