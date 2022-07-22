@@ -74,7 +74,10 @@ connection.once('open', () => {
         socket.on('move-player', (keyStateObj) => {
             if (!players) return;
 
-            const { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, w, s, a, d, ' ': space } = keyStateObj;
+            const { 
+                viewport: { width, height },
+                ArrowUp, ArrowDown, ArrowLeft, ArrowRight, w, s, a, d, ' ': space 
+            } = keyStateObj;
 
             const up = ArrowUp || w || space;
             const down = ArrowDown || s;
@@ -121,16 +124,16 @@ connection.once('open', () => {
             player.dY *= 0.9;
 
             if (player.x + player.dX < 0) {
-                player.x = 0;
+                player.x = 38;
             }
     
-            // if (player.x > width) {
-            //     player.x = width - player.dX - 20;
-            // }
-    
-            if (player.y >= 660) {
+            if (player.x > width) {
+                player.x = width - player.dX - 38;
+            }
+
+            if (player.y >= height - 38) {
                 player.isJumping = false;
-                player.y = 660;
+                player.y = height - 38;
             }
         })
 
