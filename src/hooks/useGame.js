@@ -1,6 +1,9 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
 import { useCore } from 'providers/CoreProvider'
 import { useUser } from 'providers/UserProvider'
+import { io } from 'socket.io-client'
+
+const socket = io();
 
 let keyStateObj = {
     ArrowUp: false,
@@ -14,18 +17,16 @@ let keyStateObj = {
     f: false,
     ' ': false,
     viewport: {
-        width: 0,
-        height: 0
+        width: 1903,
+        height: 873
     }
 };
 
 export const useGame = () => {
     const { 
-        socket,
         canvasRef,
         ctxRef
     } = useCore();
-    const { playerId } = useUser();
     const [players, setPlayers] = useState();
 
     // Player Class
@@ -114,8 +115,6 @@ export const useGame = () => {
 
     // Add player on user join
     useEffect(() => {
-        if (!socket) return;
-
         const emojiArr = [...'😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉'];
         const emoji = emojiArr[Math.floor(Math.random() * emojiArr.length)];   
         const newPlayer = {
@@ -130,42 +129,35 @@ export const useGame = () => {
             viewport: keyStateObj.viewport
         }
 
-        socket.emit('add-player', newPlayer);
-
-    }, [socket])
-
-    // Add player on user join
-    useEffect(() => {
-        if (!socket) return;
-
         socket.on('add-player', (playerData) => {
             AddPlayer(playerData);
         })
 
+        socket.emit('add-player', newPlayer);
+
         return () => socket.off('add-player');
-    }, [socket])
+    }, [])
 
     // Update all players
     useEffect(() => {
-        if (!socket || !players) return;
+        if (!players) return;
 
         socket.on('update-players', (playersObj) => {
+            console.log(playersObj)
             UpdatePlayers(playersObj);
         });
 
         return () => socket.off('update-players');
-    }, [socket, players])
+    }, [players])
 
     // Remove Player Socket Listener
     useEffect(() => {
-        if (!socket) return;
-
         socket.on('remove-player', (socketId) => {
             RemovePlayer(socketId);
         });
 
         return () => socket.off('remove-player')
-    }, [socket])
+    }, [])
 
     // Key Down Listener
     useEffect(() => {
@@ -261,8 +253,8 @@ export const useGame = () => {
             socket.emit('move-player', keyStateObj);
 
             if (!canvasRef.current) return;
-            keyStateObj.viewport.width = canvasRef?.current.clientWidth;
-            keyStateObj.viewport.height = canvasRef?.current.clientHeight;
+            keyStateObj.viewport.width = canvasRef.current.width || 1903;
+            keyStateObj.viewport.height = canvasRef.current.height || 873;
         }
         catch (err) {
             console.error(err);

@@ -2,13 +2,15 @@ import { useState, useEffect, useRef } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useCore } from 'providers/CoreProvider'
 import { useUser } from 'providers/UserProvider'
+import { io } from 'socket.io-client'
+
+const socket = io();
 
 export const useChat = () => {
     const toast = useToast();
     const chatMessagesRef = useRef();
     const [isSending, setIsSending] = useState();
     const { 
-        socket, 
         messageInput, 
         messages,
         setMessageInput,
@@ -17,7 +19,6 @@ export const useChat = () => {
     // const { } = useUser();
 
     useEffect(() => {
-        if (!socket) return;
         socket.on("receive-message", (data) => {
             const messageData = {
                 author: data.author,
@@ -28,7 +29,7 @@ export const useChat = () => {
             setMessages(newMessages);
         });
         return () => socket.off("receive-message")
-    }, [socket, messages])
+    }, [messages])
 
     useEffect(() => {
         if (!chatMessagesRef.current) return;
