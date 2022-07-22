@@ -59,102 +59,92 @@ connection.once('open', () => {
     io.on('connection', (socket) => {
         console.log(`[FunTime] user <${socket.id}> connected`);
 
-        socket.on('send-message', ({ messageData }) => {
-            io.emit('receive-message', messageData);
-        })
+        // add new player
+        socket.on('add-player', (playerData) => {
+            players[socket.id] = { ...playerData, id: socket.id };
 
-        socket.on('add-player', ({ playerData }) => {
             Object.values(players).filter((pData) => pData.id !== playerData.id).forEach((curPlayerData) => {
                 socket.emit('add-player', curPlayerData);
             })
 
-            io.emit('add-player', playerData);
+            io.emit('add-player', { ...playerData, id: socket.id });
         })
 
-        socket.on('update-player', (stateObj) => {
-            const { 
-                keys: { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, w, s, a, d, ' ': space },
-                player: { id, name, emoji, x, y, dX, dY, isJumping, dir }
-            } = stateObj;
+        // move a player
+        socket.on('move-player', (keyStateObj) => {
+            if (!players) return;
+
+            const { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, w, s, a, d, ' ': space } = keyStateObj;
 
             const up = ArrowUp || w || space;
             const down = ArrowDown || s;
             const left = ArrowLeft || a;
             const right = ArrowRight || d;
 
-            let newX = x;
-            let newY = y;
-            let newDX = dX;
-            let newDY = dY;
-            let newIsJumping = isJumping;
-            let newDir = dir;
+            let player = players[socket.id];
 
-            if (up && !isJumping) {
-                newDY -= gamePhysics.jumpVelocity;
-                newIsJumping = true;
+            if (!player) return;
+
+            if (up && !player.isJumping) {
+                player.dY -= gamePhysics.jumpVelocity;
+                player.isJumping = true;
             }
-
+            
             if (down) {
-                newDY += gamePhysics.jumpVelocity;
+                player.dY += gamePhysics.jumpVelocity;
             }
 
-            if (newX + 20) { // < width
-                if (newIsJumping && right) {
-                    newDX += gamePhysics.sideJumpVelocity;
+            if (player.x + 20) { // < width
+                if (player.isJumping && right) {
+                    player.dX += gamePhysics.sideJumpVelocity;
                 }
                 if (right) {
-                    newDX += gamePhysics.playerSpeed;
-                    newDir = 0;
+                    player.dX += gamePhysics.playerSpeed;
+                    player.direction = 0;
                 } 
             }
 
-            if (newX > 0) {
-                if (newIsJumping && left) {
-                    newDX -= gamePhysics.sideJumpVelocity;
+            if (player.x > 0) {
+                if (player.isJumping && left) {
+                    player.dX -= gamePhysics.sideJumpVelocity;
                 }
                 if (left) {
-                    newDX -= gamePhysics.playerSpeed;
-                    newDir = 0;
+                    player.dX -= gamePhysics.playerSpeed;
+                    player.direction = 0;
                 }
             }
 
-            newDY += gamePhysics.gravity;
-            newX += newDX;
-            newY += newDY;
-            newDX *= 0.9;
-            newDY *= 0.9;
+            player.dY += gamePhysics.gravity;
+            player.x += player.dX;
+            player.y += player.dY;
+            player.dX *= 0.9;
+            player.dY *= 0.9;
 
-            if (newX + newDX < 0) {
-                newX = 0;
+            if (player.x + player.dX < 0) {
+                player.x = 0;
             }
     
-            // if (newX > width) {
-            //     newX = width - newDX - 20;
+            // if (player.x > width) {
+            //     player.x = width - player.dX - 20;
             // }
     
-            if (newY >= 660) {
-                newIsJumping = false;
-                newY = 660;
+            if (player.y >= 660) {
+                player.isJumping = false;
+                player.y = 660;
             }
-
-            const playerData = {
-                id,
-                name,
-                emoji,
-                x: newX, 
-                y: newY, 
-                dX: newDX, 
-                dY: newDY, 
-                isJumping: newIsJumping, 
-                dir: newDir,
-                socketId: socket.id
-            }
-
-            players[socket.id] = {...playerData};
-
-            io.emit('update-player', playerData);
         })
 
+        // update all players
+        setInterval(() => {      
+            io.emit('update-players', players);
+        }, 1000 / 60);
+
+        // send chat message
+        socket.on('send-message', (messageData) => {
+            io.emit('receive-message', messageData);
+        })
+
+        // player disconnect
         socket.on('disconnect', () => {
             delete players[socket.id];
             io.emit('remove-player', socket.id);
