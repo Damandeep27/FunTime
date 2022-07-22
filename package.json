@@ -30,6 +30,7 @@
     "express": "^4.18.1",
     "express-validator": "^6.14.2",
     "framer-motion": "^6.4.2",
+    "http": "^0.0.1-security",
     "mongoose": "^6.4.3",
     "nodemon": "^2.0.19",
     "react": "^18.2.0",
@@ -50,7 +51,7 @@
     "#middlewares/*": "./middlewares/*",
     "#models/*": "./models/*",
     "#routes/*": "./routes/*",
-    "#utils/*": "./src/utils/*"
+    "#socket/*": "./socket/*"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
