@@ -227,6 +227,16 @@ export const useGame = () => {
         }
     }
 
+    // Player movement socket
+    setInterval(() => {
+        try {
+            socket.emit('move-player', keyStateObj);
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }, 1000 / 60);
+
     return {
         AddPlayer,
         RenderPlayers,

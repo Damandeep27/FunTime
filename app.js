@@ -70,6 +70,70 @@ connection.once('open', () => {
             io.emit('add-player', { ...playerData, id: socket.id });
         })
 
+        // move a player
+        socket.on('move-player', (keyStateObj) => {
+            if (!players) return;
+
+            const { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, w, s, a, d, ' ': space } = keyStateObj;
+
+            const up = ArrowUp || w || space;
+            const down = ArrowDown || s;
+            const left = ArrowLeft || a;
+            const right = ArrowRight || d;
+
+            let player = players[socket.id];
+
+            if (!player) return;
+
+            if (up && !player.isJumping) {
+                player.dY -= gamePhysics.jumpVelocity;
+                player.isJumping = true;
+            }
+            
+            if (down) {
+                player.dY += gamePhysics.jumpVelocity;
+            }
+
+            if (player.x + 20) { // < width
+                if (player.isJumping && right) {
+                    player.dX += gamePhysics.sideJumpVelocity;
+                }
+                if (right) {
+                    player.dX += gamePhysics.playerSpeed;
+                    player.direction = 0;
+                } 
+            }
+
+            if (player.x > 0) {
+                if (player.isJumping && left) {
+                    player.dX -= gamePhysics.sideJumpVelocity;
+                }
+                if (left) {
+                    player.dX -= gamePhysics.playerSpeed;
+                    player.direction = 0;
+                }
+            }
+
+            player.dY += gamePhysics.gravity;
+            player.x += player.dX;
+            player.y += player.dY;
+            player.dX *= 0.9;
+            player.dY *= 0.9;
+
+            if (player.x + player.dX < 0) {
+                player.x = 0;
+            }
+    
+            // if (player.x > width) {
+            //     player.x = width - player.dX - 20;
+            // }
+    
+            if (player.y >= 660) {
+                player.isJumping = false;
+                player.y = 660;
+            }
+        })
+
         // update all players
         setInterval(() => {      
             io.emit('update-players', players);
