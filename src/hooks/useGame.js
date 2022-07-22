@@ -77,6 +77,7 @@ export const useGame = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             RenderPlayers(ctx);
+
             requestAnimationFrame(render);
         }
         render();
