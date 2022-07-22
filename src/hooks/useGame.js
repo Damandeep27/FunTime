@@ -13,6 +13,10 @@ let keyStateObj = {
     d: false,
     f: false,
     ' ': false,
+    viewport: {
+        width: 0,
+        height: 0
+    }
 };
 
 export const useGame = () => {
@@ -27,7 +31,7 @@ export const useGame = () => {
     // Player Class
     class Player {
         constructor(playerData) {
-            const { id, name, emoji, x, y, dX, dY, isJumping, dir } = playerData;
+            const { id, name, emoji, x, y, dX, dY, isJumping, dir, viewport } = playerData;
 
             this.id = id;
             this.name = name;
@@ -38,22 +42,40 @@ export const useGame = () => {
             this.dY = dY;
             this.isJumping = isJumping;
             this.dir = dir;
+            this.viewport = viewport;
         }
 
         draw(ctx) {
-            ctx.font = '36px Poppins';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(this.emoji, this.x, this.y);
+            const { width: playerViewWidth, height: playerViewHeight } = this.viewport;
+            const { width: curUserViewWidth, height: curUserViewHeight } = keyStateObj.viewport;
 
-            ctx.font = '18px Poppins';
-            ctx.fillText(this.name, this.x, this.y - 40);
+            // if same viewport
+            if (playerViewWidth === curUserViewWidth && playerViewHeight === curUserViewHeight) {
+                ctx.font = '36px Poppins';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.emoji, this.x, this.y);
+    
+                ctx.font = '18px Poppins';
+                ctx.fillText(this.name, this.x, this.y - 40);
+            }
+            else { // if not same viewport
+                const curX = curUserViewWidth - (playerViewWidth - this.x);
+                const curY = curUserViewHeight - (playerViewHeight - this.y);
+
+                ctx.font = '36px Poppins';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.emoji, curX, curY);
+    
+                ctx.font = '18px Poppins';
+                ctx.fillText(this.name, curX, curY - 40);
+            }
         }
 
         update(playerData) {
-            const { id, name, emoji, x, y, dX, dY, isJumping, dir } = playerData;
+            const { name, emoji, x, y, dX, dY, isJumping, dir, viewport } = playerData;
 
-            this.id = id;
             this.name = name;
             this.emoji = emoji;
             this.x = x;
@@ -62,6 +84,10 @@ export const useGame = () => {
             this.dY = dY;
             this.isJumping = isJumping;
             this.dir = dir;
+            this.viewport = viewport;
+
+            if (!playerData.id) return;
+            this.id = playerData.id;
         }
     }
 
@@ -100,7 +126,8 @@ export const useGame = () => {
             dX: 10, 
             dY: 10, 
             isJumping: false, 
-            dir: 0
+            dir: 0,
+            viewport: keyStateObj.viewport
         }
 
         socket.emit('add-player', newPlayer);
@@ -231,6 +258,8 @@ export const useGame = () => {
     // Player movement socket
     setInterval(() => {
         try {
+            keyStateObj.viewport.width = canvasRef?.current.clientWidth;
+            keyStateObj.viewport.height = canvasRef?.current.clientHeight;
             socket.emit('move-player', keyStateObj);
         }
         catch (err) {
