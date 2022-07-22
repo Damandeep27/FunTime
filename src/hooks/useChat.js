@@ -46,7 +46,7 @@ export const useChat = () => {
                 message: messageInput,
             }
 
-            socket.emit('send-message', { messageData });
+            socket.emit('send-message', messageData);
             
             setMessageInput('');
             setIsSending(false);
