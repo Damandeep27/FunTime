@@ -49,6 +49,20 @@ export const useGame = () => {
             ctx.font = '18px Poppins';
             ctx.fillText(this.name, this.x, this.y - 40);
         }
+
+        update(playerData) {
+            const { id, name, emoji, x, y, dX, dY, isJumping, dir } = playerData;
+
+            this.id = id;
+            this.name = name;
+            this.emoji = emoji;
+            this.x = x;
+            this.y = y;
+            this.dX = dX;
+            this.dY = dY;
+            this.isJumping = isJumping;
+            this.dir = dir;
+        }
     }
 
     // Render Game Graphics
@@ -103,27 +117,27 @@ export const useGame = () => {
         return () => socket.off('add-player');
     }, [socket])
 
-    // Update Player Socket Listener
-    // useEffect(() => {
-    //     if (!socket || !players) return;
+    // Update all players
+    useEffect(() => {
+        if (!socket || !players) return;
 
-    //     socket.on('update-players', (playersObj) => {
-    //         UpdatePlayers(playersObj);
-    //     });
+        socket.on('update-players', (playersObj) => {
+            UpdatePlayers(playersObj);
+        });
 
-    //     return () => socket.off('update-players')
-    // }, [socket, players])
+        return () => socket.off('update-players');
+    }, [socket, players])
 
     // Remove Player Socket Listener
     useEffect(() => {
-        if (!socket || !players) return;
+        if (!socket) return;
 
         socket.on('remove-player', (socketId) => {
             RemovePlayer(socketId);
         });
 
         return () => socket.off('remove-player')
-    }, [socket, players])
+    }, [socket])
 
     // Key Down Listener
     useEffect(() => {
@@ -186,19 +200,10 @@ export const useGame = () => {
      */
     const UpdatePlayers = (playersObj) => {
         try {
-            //const { id, x, y, dX, dY, isJumping, dir, socketId } = playerData;
-
-            // const pIdx = players.map((player) => player.id ).indexOf(id);
-    
-            // if (pIdx === -1) return;
-
-            // players[pIdx].x = x;
-            // players[pIdx].y = y;
-            // players[pIdx].dX = dX;
-            // players[pIdx].dY = dY;
-            // players[pIdx].isJumping = isJumping;
-            // players[pIdx].dir = dir;
-            // players[pIdx].socketId = socketId;
+            Object.entries(players).forEach((playerData) => {
+                const [socketId, player] = playerData;
+                player.update(playersObj[socketId]);
+            })
         }
         catch (err) {
             console.error(err);

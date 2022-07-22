@@ -70,6 +70,11 @@ connection.once('open', () => {
             io.emit('add-player', { ...playerData, id: socket.id });
         })
 
+        // update all players
+        setInterval(() => {      
+            io.emit('update-players', players);
+        }, 1000 / 60);
+
         // send chat message
         socket.on('send-message', (messageData) => {
             io.emit('receive-message', messageData);
