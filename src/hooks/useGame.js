@@ -27,6 +27,7 @@ export const useGame = () => {
         canvasRef,
         ctxRef
     } = useCore();
+    const { user } = useUser();
     const [players, setPlayers] = useState();
 
     // Player Class
@@ -133,7 +134,6 @@ export const useGame = () => {
         if (!players) return;
 
         socket.on('update-players', (playersObj) => {
-            console.log(playersObj)
             UpdatePlayers(playersObj);
         });
 
