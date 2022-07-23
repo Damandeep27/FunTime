@@ -6,8 +6,16 @@ import Navbar from 'components/Navbar'
 import Footer from 'components/Footer'
 import { Link as RouteLink } from 'react-router-dom'
 import { MdOutlineEmail, MdLockOutline } from 'react-icons/md'
+import { auth,
+    db,
+    signInWithGoogle,
+    logout,} from "../../firebase"
+import { useLogin } from 'hooks/useLogin'
+
 
 const Login = () => {
+
+    useLogin();
     return (
         <div>
             <Box style={{ minHeight: '100vh' }}>
@@ -25,11 +33,11 @@ const Login = () => {
                                 </VStack>
                                 
                                 <VStack mt='2em'>
-                                <RouteLink to='/game'>
-                                    <Button variant='primary' size='md'>
+                                
+                                    <Button variant='primary' size='md' onClick={signInWithGoogle}>
                                         Sign in
                                     </Button>
-                                </RouteLink>
+                              
                                 </VStack>
                             </Flex>
                         </Flex>

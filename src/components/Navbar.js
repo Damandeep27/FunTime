@@ -2,7 +2,7 @@ import React from 'react'
 import { HStack, Image, Text, Button } from '@chakra-ui/react'
 import { Link as RouteLink } from 'react-router-dom'
 
-const Navbar = ({ page, onChat }) => {
+const Navbar = ({ page, onChat,logout }) => {
     return (
         <nav>
             <HStack p='1.5em' justifyContent='space-between' px='3em'>
@@ -30,10 +30,16 @@ const Navbar = ({ page, onChat }) => {
                             </RouteLink>
                             </>
                         ),
-                        game: (
+                        game: (<>
+
                             <Button onClick={onChat} variant='primary' boxShadow='md'>
                                 Chat
                             </Button>
+
+                                <Button onClick={logout} variant='primary' boxShadow='md'>
+                                Logout
+                                </Button>
+                                </>
                         )
                     }[page]}
                 </HStack>

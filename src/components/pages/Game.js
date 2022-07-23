@@ -13,16 +13,21 @@ import Footer from 'components/Footer'
 import Chat from 'components/Chat'
 import AutoSizer from 'components/AutoSizer'
 import { Link as RouteLink } from 'react-router-dom'
+import { auth,
+    db,
+    signInWithGoogle,
+    logout,} from "../../firebase"
+import { useLogout } from 'hooks/useLogout'
 
 const Game = () => {
     const { canvasRef } = useCore();
     const { isOpen: isChatOpen, onOpen: onChat, onClose: onChatClose } = useDisclosure();
     useGame();
-
+    useLogout();
     return (
         <div>
             <Flex minH='100vh' flexDir='column'>
-                <Navbar page='game' onChat={onChat} />
+                <Navbar page='game' logout={logout} onChat={onChat} />
                 <Chat isOpen={isChatOpen} onClose={onChatClose} />
                 <main style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                     <AutoSizer>
