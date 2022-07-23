@@ -50,28 +50,18 @@ export const useGame = () => {
             const { width: playerViewWidth, height: playerViewHeight } = this.viewport;
             const { width: curUserViewWidth, height: curUserViewHeight } = keyStateObj.viewport;
 
-            // if same viewport
-            if (playerViewWidth === curUserViewWidth && playerViewHeight === curUserViewHeight) {
-                ctx.font = '36px Poppins';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(this.emoji, this.x, this.y);
-    
-                ctx.font = '18px Poppins';
-                ctx.fillText(this.name, this.x, this.y - 40);
-            }
-            else { // if not same viewport
-                const curX = curUserViewWidth - (playerViewWidth - this.x);
-                const curY = curUserViewHeight - (playerViewHeight - this.y);
+            const sameViewport = playerViewWidth === curUserViewWidth && playerViewHeight === curUserViewHeight;
 
-                ctx.font = '36px Poppins';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(this.emoji, curX, curY);
-    
-                ctx.font = '18px Poppins';
-                ctx.fillText(this.name, curX, curY - 40);
-            }
+            const curX = this.x * curUserViewWidth / playerViewWidth;
+            const curY = curUserViewHeight - (playerViewHeight - this.y);
+
+            ctx.font = '36px Poppins';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(this.emoji, sameViewport ? this.x : curX, sameViewport ? this.y : curY);
+
+            ctx.font = '18px Poppins';
+            ctx.fillText(this.name, sameViewport ? this.x : curX, sameViewport ? this.y - 40 : curY - 40);
         }
 
         update(playerData) {
