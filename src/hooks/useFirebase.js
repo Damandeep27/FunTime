@@ -2,6 +2,8 @@ import { initializeApp } from 'firebase/app'
 import { useToast } from '@chakra-ui/react'
 import { useUser } from 'providers/UserProvider'
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth'
+import axios from 'axios'
+import config from 'config/index'
 
 const firebaseConfig = {
     apiKey: process.env.FB_API_KEY,
@@ -26,6 +28,8 @@ export const useFirebase = () => {
             const res = await signInWithPopup(auth, googleProvider);
             const user = res.user;
             setUser(user);
+
+            // ad to db
           
         } catch (err) {
             console.error(err);

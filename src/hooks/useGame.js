@@ -103,10 +103,12 @@ export const useGame = () => {
 
     // Add player on user join
     useEffect(() => {
+        if (!user) return;
+
         const emojiArr = [...'😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉'];
         const emoji = emojiArr[Math.floor(Math.random() * emojiArr.length)];   
         const newPlayer = {
-            name: 'Stephen', 
+            name: user.displayName.trim(), 
             emoji,
             x: 48,
             y: 48,
@@ -124,7 +126,7 @@ export const useGame = () => {
         socket.emit('add-player', newPlayer);
 
         return () => socket.off('add-player');
-    }, [])
+    }, [user])
 
     // Update all players
     useEffect(() => {
