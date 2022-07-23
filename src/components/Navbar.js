@@ -2,8 +2,11 @@ import React from 'react'
 import { HStack, Image, Text, Button } from '@chakra-ui/react'
 import { Link as RouteLink } from 'react-router-dom'
 import { useFirebase } from 'hooks/useFirebase'
+import { HiOutlineShoppingBag } from 'react-icons/hi'
+import { BsChatLeftText } from 'react-icons/bs'
+import { FiLogOut } from 'react-icons/fi'
 
-const Navbar = ({ page, onChat }) => {
+const Navbar = ({ page, onChat, onShop }) => {
     const { Logout } = useFirebase();
 
     return (
@@ -35,10 +38,13 @@ const Navbar = ({ page, onChat }) => {
                         ),
                         game: (
                             <>
-                            <Button onClick={onChat} variant='primary' boxShadow='md'>
+                            <Button onClick={onShop} variant='primary' boxShadow='md' leftIcon={<HiOutlineShoppingBag />}>
+                                Shop
+                            </Button>
+                            <Button onClick={onChat} variant='primary' boxShadow='md' leftIcon={<BsChatLeftText />}>
                                 Chat
                             </Button>
-                            <Button onClick={Logout} variant='primary' boxShadow='md'>
+                            <Button onClick={Logout} boxShadow='md' rightIcon={<FiLogOut />}>
                                 Logout
                             </Button>
                             </>
