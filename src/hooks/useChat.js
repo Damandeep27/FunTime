@@ -35,12 +35,13 @@ export const useChat = () => {
 
     const SendMessage = async () => {
         try {
-            if (messageInput.trim().length === 0) return;
+            if (!messageInput.trim().length) return;
+            if (messageInput.trim().length > 32) throw new Error('Max message length is 32 characters');
 
             setIsSending(true);
 
             const messageData = {
-                author: 'Stephen',
+                author: user.displayName.trim(),
                 message: messageInput,
             }
 

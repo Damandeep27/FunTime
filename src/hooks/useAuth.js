@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 import { useToast } from '@chakra-ui/react'
+import { useUser } from 'providers/UserProvider'
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from 'hooks/useFirebase'
 
 export const useAuth = ({ protect }) => {
     const toast = useToast();
+    const { setUser } = useUser();
     const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate();
 
@@ -24,7 +26,7 @@ export const useAuth = ({ protect }) => {
             return;
         }
 
-        console.log(user)
+        if (user) setUser(user);
 
         if (protect && !user) navigate('/');
         else if (!protect && user) navigate('/game');
