@@ -10,7 +10,7 @@ const Shop = ({ isOpen, onClose }) => {
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
+            <ModalHeader>Shop</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 
@@ -23,4 +23,4 @@ const Shop = ({ isOpen, onClose }) => {
     )
 }
 
-export default Shop;
+export default Shop
