@@ -1,12 +1,13 @@
 import React from 'react'
 import { Flex, Text, Button, Box, VStack } from '@chakra-ui/react'
 import { useAuth } from 'hooks/useAuth'
+import { useFirebase } from 'hooks/useFirebase'
 import Navbar from 'components/Navbar'
 import Footer from 'components/Footer'
-import { signInWithGoogle } from 'utils/firebase.js'
 import { FcGoogle } from 'react-icons/fc'
 
 const Login = () => {
+    const { SignInWithGoogle } = useFirebase();
     useAuth({ protect: false });
 
     return (
@@ -24,7 +25,7 @@ const Login = () => {
                                     Sign in with your google account.
                                 </Text>
                                 <VStack mt='1.5em'>
-                                    <Button size='md' onClick={signInWithGoogle} leftIcon={<FcGoogle />}>
+                                    <Button size='md' onClick={SignInWithGoogle} leftIcon={<FcGoogle />}>
                                         Continue with Google
                                     </Button>
                                 </VStack>

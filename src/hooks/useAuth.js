@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from 'utils/firebase.js'
+import { auth } from 'hooks/useFirebase'
 
 export const useAuth = ({ protect }) => {
     const toast = useToast();

@@ -1,9 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
-import { useCore } from 'providers/CoreProvider'
+import { useCore, socket } from 'providers/CoreProvider'
 import { useUser } from 'providers/UserProvider'
-import { io } from 'socket.io-client'
-
-const socket = io();
 
 let keyStateObj = {
     ArrowUp: false,
