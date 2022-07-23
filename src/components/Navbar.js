@@ -5,8 +5,9 @@ import { useFirebase } from 'hooks/useFirebase'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { BsChatLeftText } from 'react-icons/bs'
 import { FiLogOut } from 'react-icons/fi'
+import { CgProfile } from 'react-icons/cg'
 
-const Navbar = ({ page, onChat, onShop }) => {
+const Navbar = ({ page, onProfile, onChat, onShop }) => {
     const { Logout } = useFirebase();
 
     return (
@@ -38,11 +39,14 @@ const Navbar = ({ page, onChat, onShop }) => {
                         ),
                         game: (
                             <>
-                            <Button onClick={onShop} variant='primary' boxShadow='md' leftIcon={<HiOutlineShoppingBag />}>
-                                Shop
+                            <Button onClick={onProfile} variant='primary' boxShadow='md' leftIcon={<CgProfile />}>
+                                Profile
                             </Button>
                             <Button onClick={onChat} variant='primary' boxShadow='md' leftIcon={<BsChatLeftText />}>
                                 Chat
+                            </Button>
+                            <Button onClick={onShop} variant='primary' boxShadow='md' leftIcon={<HiOutlineShoppingBag />}>
+                                Shop
                             </Button>
                             <Button onClick={Logout} boxShadow='md' rightIcon={<FiLogOut />}>
                                 Logout
