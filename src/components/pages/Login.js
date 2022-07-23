@@ -1,21 +1,14 @@
 import React from 'react'
-import { Flex, HStack, Text, Button, Box, 
-    VStack, Input, InputGroup, InputLeftElement, Image
-} from '@chakra-ui/react'
+import { Flex, Text, Button, Box, VStack } from '@chakra-ui/react'
+import { useAuth } from 'hooks/useAuth'
 import Navbar from 'components/Navbar'
 import Footer from 'components/Footer'
-import { Link as RouteLink } from 'react-router-dom'
-import { MdOutlineEmail, MdLockOutline } from 'react-icons/md'
-import { auth,
-    db,
-    signInWithGoogle,
-    logout,} from "../../firebase"
-import { useLogin } from 'hooks/useLogin'
-
+import { signInWithGoogle } from 'utils/firebase.js'
+import { FcGoogle } from 'react-icons/fc'
 
 const Login = () => {
+    useAuth({ protect: false });
 
-    useLogin();
     return (
         <div>
             <Box style={{ minHeight: '100vh' }}>
@@ -24,20 +17,16 @@ const Login = () => {
                     <Flex justifyContent='center' alignItems='center'>
                         <Flex flexDir='column' alignItems='center' h='full' justifyContent='center' maxW='1200px' w='full'>
                             <Flex flexDir='column' bg='white' boxShadow='md' p='2em' maxW='500px' w='full' borderRadius='10px' mt='10em'>
-                                <VStack>
                                 <Text fontSize='16pt'>
-                                    Sign in with
+                                    Login
                                 </Text>
-                                <Image src='./assets/image/google.png' alt='FunTime Logo' w='50px' />
-
-                                </VStack>
-                                
-                                <VStack mt='2em'>
-                                
-                                    <Button variant='primary' size='md' onClick={signInWithGoogle}>
-                                        Sign in
+                                <Text fontSize='10pt'>
+                                    Sign in with your google account.
+                                </Text>
+                                <VStack mt='1.5em'>
+                                    <Button size='md' onClick={signInWithGoogle} leftIcon={<FcGoogle />}>
+                                        Continue with Google
                                     </Button>
-                              
                                 </VStack>
                             </Flex>
                         </Flex>

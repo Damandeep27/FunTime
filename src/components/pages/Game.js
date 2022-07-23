@@ -1,33 +1,23 @@
 import React from 'react'
-import { Flex, Heading,HStack, Text, Button, SlideFade, Box, 
-    Link, Wrap, Image, VStack, WrapItem, Modal, InputGroup,
-    ModalOverlay, ModalContent, ModalHeader, ModalFooter,
-    ModalBody, ModalCloseButton,InputRightElement, useDisclosure, 
-    Input, Drawer, DrawerBody, DrawerContent, DrawerCloseButton, 
-    DrawerFooter, DrawerHeader, DrawerOverlay
-} from '@chakra-ui/react'
+import { Flex, useDisclosure } from '@chakra-ui/react'
 import { useCore } from 'providers/CoreProvider'
 import { useGame } from 'hooks/useGame'
+import { useAuth } from 'hooks/useAuth'
 import Navbar from 'components/Navbar'
 import Footer from 'components/Footer'
 import Chat from 'components/Chat'
 import AutoSizer from 'components/AutoSizer'
-import { Link as RouteLink } from 'react-router-dom'
-import { auth,
-    db,
-    signInWithGoogle,
-    logout,} from "../../firebase"
-import { useLogout } from 'hooks/useLogout'
 
 const Game = () => {
     const { canvasRef } = useCore();
     const { isOpen: isChatOpen, onOpen: onChat, onClose: onChatClose } = useDisclosure();
     useGame();
-    useLogout();
+    useAuth({ protect: true });
+
     return (
         <div>
             <Flex minH='100vh' flexDir='column'>
-                <Navbar page='game' logout={logout} onChat={onChat} />
+                <Navbar page='game' onChat={onChat} />
                 <Chat isOpen={isChatOpen} onClose={onChatClose} />
                 <main style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                     <AutoSizer>
