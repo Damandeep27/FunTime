@@ -1,10 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useToast } from '@chakra-ui/react'
-import { useCore } from 'providers/CoreProvider'
+import { useCore, socket } from 'providers/CoreProvider'
 import { useUser } from 'providers/UserProvider'
-import { io } from 'socket.io-client'
-
-const socket = io();
 
 export const useChat = () => {
     const toast = useToast();
@@ -16,7 +13,7 @@ export const useChat = () => {
         setMessageInput,
         setMessages
     } = useCore();
-    // const { } = useUser();
+    const { user } = useUser();
 
     useEffect(() => {
         socket.on("receive-message", (data) => {
