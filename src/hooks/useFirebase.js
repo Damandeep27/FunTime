@@ -33,7 +33,7 @@ export const useFirebase = () => {
 
             localStorage.setItem('funtime-token', res._tokenResponse.oauthIdToken);
 
-            const result = await axios.post(`${config.serverUrl}/api/user/login`, {
+            const result = await axios.post(`${config.serverUrl}/api/v1/user/login`, {
                 firebase_uid: uid,
                 email,
                 name: displayName

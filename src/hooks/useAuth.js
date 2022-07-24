@@ -44,7 +44,7 @@ export const useAuth = ({ protect }) => {
 
             const { uid, email, displayName } = user;
 
-            const result = await axios.post(`${config.serverUrl}/api/user/login`, {
+            const result = await axios.post(`${config.serverUrl}/api/v1/user/login`, {
                 firebase_uid: uid,
                 email,
                 name: displayName
