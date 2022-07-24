@@ -26,10 +26,31 @@ export const useFirebase = () => {
     const SignInWithGoogle = async () => {
         try {
             const res = await signInWithPopup(auth, googleProvider);
-            const user = res.user;
-            setUser(user);
+            
+            const { uid, email, displayName } = res.user;
 
-            // ad to db
+            setUser(res.user);
+
+            const result = await axios.post(`${config.serverUrl}/api/user/login`, {
+                firebase_uid: uid,
+                email,
+                name: displayName
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${res._tokenResponse.oauthIdToken}` 
+                }
+            })
+
+            if (result.status === 200) return;
+
+            toast({
+                title: 'Success',
+                description: 'Successfuly signed in',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
           
         } catch (err) {
             console.error(err);
