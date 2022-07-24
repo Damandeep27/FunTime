@@ -24,17 +24,19 @@ export const useGame = () => {
         canvasRef,
         ctxRef
     } = useCore();
-    const { user } = useUser();
+    const { userData } = useUser();
     const [players, setPlayers] = useState();
 
     // Player Class
     class Player {
         constructor(playerData) {
-            const { id, name, emoji, x, y, dX, dY, isJumping, dir, viewport } = playerData;
+            const { id, name, emoji, size, nameColor, x, y, dX, dY, isJumping, dir, viewport } = playerData;
 
             this.id = id;
             this.name = name;
             this.emoji = emoji;
+            this.size = size;
+            this.nameColor = nameColor;
             this.x = x;
             this.y = y;
             this.dX = dX;
@@ -53,20 +55,22 @@ export const useGame = () => {
             const curX = this.x * curUserViewWidth / playerViewWidth;
             const curY = curUserViewHeight - (playerViewHeight - this.y);
 
-            ctx.font = '36px Poppins';
+            ctx.font = `${this.size.toString()}px Poppins`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(this.emoji, sameViewport ? this.x : curX, sameViewport ? this.y : curY);
 
             ctx.font = '18px Poppins';
-            ctx.fillText(this.name, sameViewport ? this.x : curX, sameViewport ? this.y - 40 : curY - 40);
+            ctx.fillStyle = this.nameColor || 'black';
+            ctx.fillText(this.name, sameViewport ? this.x : curX, sameViewport ? this.y - (this.size + 2) : curY - (this.size + 2));
         }
 
         update(playerData) {
-            const { name, emoji, x, y, dX, dY, isJumping, dir, viewport } = playerData;
+            const { name, emoji, size, x, y, dX, dY, isJumping, dir, viewport } = playerData;
 
             this.name = name;
             this.emoji = emoji;
+            this.size = size;
             this.x = x;
             this.y = y;
             this.dX = dX;
@@ -103,13 +107,15 @@ export const useGame = () => {
 
     // Add player on user join
     useEffect(() => {
-        if (!user) return;
+        if (!userData) return;
 
-        const emojiArr = [...'😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉'];
-        const emoji = emojiArr[Math.floor(Math.random() * emojiArr.length)];   
+        const { player: { size, nameColor, emoji }, name } = userData;
+
         const newPlayer = {
-            name: user.displayName.trim(), 
+            name, 
             emoji,
+            size,
+            nameColor,
             x: 48,
             y: 48,
             dX: 10, 
@@ -126,7 +132,7 @@ export const useGame = () => {
         socket.emit('add-player', newPlayer);
 
         return () => socket.off('add-player');
-    }, [user])
+    }, [userData])
 
     // Update all players
     useEffect(() => {

@@ -23,6 +23,10 @@ const UsersSchema = new Schema({
         nameColor: {
             type: String,
             default: 'black'
+        },
+        emoji: {
+            type: String,
+            default: '🐭'
         }
     }
 
