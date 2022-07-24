@@ -6,8 +6,9 @@ import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { BsChatLeftText } from 'react-icons/bs'
 import { FiLogOut } from 'react-icons/fi'
 import { CgProfile } from 'react-icons/cg'
+import { AiOutlineLeft } from 'react-icons/ai'
 
-const Navbar = ({ page, onProfile, onChat, onShop }) => {
+const Navbar = ({ page, onProfile, onChat }) => {
     const { Logout } = useFirebase();
 
     return (
@@ -45,13 +46,22 @@ const Navbar = ({ page, onProfile, onChat, onShop }) => {
                             <Button onClick={onChat} variant='primary' boxShadow='md' leftIcon={<BsChatLeftText />}>
                                 Chat
                             </Button>
-                            <Button onClick={onShop} variant='primary' boxShadow='md' leftIcon={<HiOutlineShoppingBag />}>
-                                Shop
-                            </Button>
+                            <RouteLink to='/shop'>
+                                <Button variant='primary' boxShadow='md' leftIcon={<HiOutlineShoppingBag />}>
+                                    Shop
+                                </Button>
+                            </RouteLink>
                             <Button onClick={Logout} boxShadow='md' rightIcon={<FiLogOut />}>
                                 Logout
                             </Button>
                             </>
+                        ),
+                        shop: (
+                            <RouteLink to='/game'>
+                                <Button variant='primary' boxShadow='md' leftIcon={<AiOutlineLeft />}>
+                                    Back to Game
+                                </Button>
+                            </RouteLink>
                         )
                     }[page]}
                 </HStack>

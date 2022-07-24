@@ -15,3 +15,19 @@ exports.LoginValidator = [
     .notEmpty(),
     
 ];
+
+exports.CreateSessionValidator = [
+
+    // name Validator
+    check('name', 'name is empty')
+    .notEmpty(),
+    
+    // emoji Validator
+    check('emoji', 'emoji is empty')
+    .notEmpty(),
+
+    // price Validator
+    check('price', 'price is empty')
+    .notEmpty(),
+    
+];
