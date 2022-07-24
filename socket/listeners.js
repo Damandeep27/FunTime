@@ -74,16 +74,16 @@ module.exports = (io) => {
         player.dY *= 0.9;
 
         if (player.x + player.dX < 0) {
-            player.x = 38;
+            player.x = player.size;
         }
 
         if (player.x > width) {
-            player.x = width - player.dX - 38;
+            player.x = width - player.dX - player.size;
         }
 
-        if (player.y >= height - 38) {
+        if (player.y >= height - player.size) {
             player.isJumping = false;
-            player.y = height - 38;
+            player.y = height - player.size;
         }
     }
 

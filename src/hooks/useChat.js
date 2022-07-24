@@ -13,7 +13,7 @@ export const useChat = () => {
         setMessageInput,
         setMessages
     } = useCore();
-    const { user } = useUser();
+    const { userData } = useUser();
 
     useEffect(() => {
         socket.on("receive-message", (data) => {
@@ -41,7 +41,7 @@ export const useChat = () => {
             setIsSending(true);
 
             const messageData = {
-                author: user.displayName.trim(),
+                author: userData.name,
                 message: messageInput,
             }
 
