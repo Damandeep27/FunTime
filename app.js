@@ -4,6 +4,7 @@ const path = require('path');
 const express = require("express");
 const cors = require('cors');
 const router = require("./routes/index.js");
+
 const app = express();
 const server = require("http").Server(app);
 const { errorHandler } = require('#middlewares/errorHandler.js');
@@ -41,9 +42,8 @@ app.use((req, res, next) => {
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended:true }));
 app.use(express.json());
-app.use('/api', router);
+app.use('/api/v1',router);
 app.use(errorHandler);
-
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
