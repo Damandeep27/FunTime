@@ -1,0 +1,489 @@
+{
+	"info": {
+		"_postman_id": "5872418f-6c5c-42b6-b1c9-dd95d26f7363",
+		"name": "FunTime",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21931968"
+	},
+	"item": [
+		{
+			"name": "Payment Route",
+			"item": [
+				{
+					"name": "Create Session",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Provides checkout session url\", function () {\r",
+									"    const { id, url } = pm.response.json();\r",
+									"    pm.expect(url.length).to.be.above(0);\r",
+									"\r",
+									"    // Save checkeout session id\r",
+									"    pm.globals.set(\"SESSION_ID\", id);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"62de3ee7e0fb0e2090a6bb7c\",\r\n    \"name\": \"Skull\",\r\n    \"emoji\": \"💀\",\r\n    \"price\": 60\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/payment/createCheckout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"payment",
+								"createCheckout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Session",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Sessions total amount is 6000\", function () {\r",
+									"    const { amount_total } = pm.response.json();\r",
+									"    pm.expect(amount_total).to.eql(6000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/payment/getSession?sessionId={{SESSION_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"payment",
+								"getSession"
+							],
+							"query": [
+								{
+									"key": "sessionId",
+									"value": "{{SESSION_ID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Route",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User email is stephenasuncion01@gmail.com\", function () {\r",
+									"    const { email } = pm.response.json();\r",
+									"    pm.expect(email).to.eql('stephenasuncion01@gmail.com');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firebase_uid\": \"ypMK4JjuX2bQKq0mo9yLBNk57xa2\",\r\n    \"email\": \"stephenasuncion01@gmail.com\",\r\n    \"name\": \"Stephen Allen Asuncion\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User email is stephenasuncion01@gmail.com\", function () {\r",
+									"    const name = pm.response.json();\r",
+									"    pm.expect(name).to.eql(\"Typedef\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"62de3ee7e0fb0e2090a6bb7c\",\r\n    \"name\": \"Typedef\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/setName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"setName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Emoji",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Added emoji is skull\", function () {\r",
+									"    const emoji = pm.response.json();\r",
+									"    pm.expect(emoji).to.eql(\"💀\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"62de3ee7e0fb0e2090a6bb7c\",\r\n    \"emoji\": \"💀\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/addEmoji",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"addEmoji"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Emoji",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Set emoji is skull\", function () {\r",
+									"    const { player: { emoji } } = pm.response.json();\r",
+									"    pm.expect(emoji).to.eql(\"💀\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"62de3ee7e0fb0e2090a6bb7c\",\r\n    \"emoji\": \"💀\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/setEmoji",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"setEmoji"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Message is Successfully sent email\", function () {\r",
+									"    const { message } = pm.response.json();\r",
+									"    pm.expect(message).to.eql(\"Successfully sent email\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"stephenasuncion01@gmail.com\",\r\n    \"name\": \"Stephen Allen Asuncion\",\r\n    \"subject\": \"Funtime - Order Confirmation\",\r\n    \"html\": \"<p>Test</p>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/sendEmail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"sendEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send SMS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Message is Successfully sent sms\", function () {\r",
+									"    const { message } = pm.response.json();\r",
+									"    pm.expect(message).to.eql(\"Successfully sent sms\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"to\": \"+16044401225\",\r\n    \"body\": \"FunTime - Order Confirmation. You paid $60.00 by purchasing: 💀.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/sendSMS",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"sendSMS"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "clientId",
+				"value": "79933076212-u616aktoo04093b47oebdaedmhd4gn24.apps.googleusercontent.com",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{CLIENT_SECRET}}",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "https://www.googleapis.com/auth/userinfo.email",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://accounts.google.com/o/oauth2/token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://accounts.google.com/o/oauth2/auth",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://www.getpostman.com/oauth2/callback",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "Google OAuth",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "CLIENT_ID",
+			"value": "79933076212-u616aktoo04093b47oebdaedmhd4gn24.apps.googleusercontent.com",
+			"type": "string"
+		},
+		{
+			"key": "CLIENT_SECRET",
+			"value": "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",
+			"type": "string"
+		}
+	]
+}
