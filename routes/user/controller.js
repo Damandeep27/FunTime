@@ -1,5 +1,13 @@
 const { validationResult } = require('express-validator');
 const { User } = require('#models/User.js');
+const twilioClient = require('twilio')(
+    process.env.TWILIO_ACCOUNT_SID,
+    process.env.TWILIO_AUTH_TOKEN
+);
+const mailjetClient = require('node-mailjet').apiConnect(
+    process.env.MAILJET_API_KEY,
+    process.env.MAILJET_API_SECRET
+);
 
 exports.login = async (req, res, next) => {
     try {
@@ -107,6 +115,61 @@ exports.setName = async (req, res, next) => {
         })
 
         res.status(200).json(name);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.sendEmail = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors.map(err => err.msg).join(', '));
+
+        const { email, name, subject, html } = req.body;
+
+        await mailjetClient.post("send", {'version': 'v3.1'})
+        .request({
+            "Messages":[
+                {
+                    "From": {
+                        "Email": "stephenasuncion01@gmail.com",
+                        "Name": "Stephen"
+                    },
+                    "To": [
+                        {
+                        "Email": email,
+                        "Name": name
+                        }
+                    ],
+                    "Subject": subject,
+                    "HTMLPart": html
+                }
+            ]
+        })
+
+        res.status(200).json({ message: 'Successfully sent email' });
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.sendSMS = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors.map(err => err.msg).join(', '));
+
+        const { to, body } = req.body;
+
+        await twilioClient.messages
+        .create({
+            from: process.env.TWILIO_PHONE_NUMBER,
+            to: to,
+            body: body
+        })
+
+        res.status(200).json({ message: 'Successfully sent sms' });
 
     } catch (err) {
         next(err);

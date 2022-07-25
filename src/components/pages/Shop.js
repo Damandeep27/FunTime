@@ -140,6 +140,10 @@ const Checkout = () => {
                         </Text>
                         <VStack minW='350px' mt='2em'>
                             <HStack w='full' justifyContent='space-between'>
+                                <Text fontWeight='bold'>EMOJI</Text>
+                                <Tag><TagLabel>{session?.metadata?.emoji}</TagLabel></Tag>
+                            </HStack>
+                            <HStack w='full' justifyContent='space-between'>
                                 <Text fontWeight='bold'>AMOUNT PAID</Text>
                                 <Tag><TagLabel>${session?.amount_total / 100}</TagLabel></Tag>
                             </HStack>

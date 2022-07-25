@@ -75,3 +75,35 @@ exports.SetNameValidator = [
     .notEmpty(),
 
 ]
+
+exports.SendEmailValidator = [
+
+    // email Validator
+    check('email', 'email is empty')
+    .notEmpty(),
+
+    // name Validator
+    check('name', 'name is empty')
+    .notEmpty(),
+
+    // subject Validator
+    check('subject', 'subject is empty')
+    .notEmpty(),
+
+    // html Validator
+    check('html', 'html is empty')
+    .notEmpty(),
+
+]
+
+exports.SendSMSValidator = [
+
+    // to Validator
+    check('to', 'to is empty')
+    .notEmpty(),
+
+    // body Validator
+    check('body', 'body is empty')
+    .notEmpty(),
+    
+]
