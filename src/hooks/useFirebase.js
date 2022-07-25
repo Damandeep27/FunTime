@@ -27,25 +27,13 @@ export const useFirebase = () => {
         try {
             const res = await signInWithPopup(auth, googleProvider);
             
-            const { uid, email, displayName } = res.user;
-
             setUser(res.user);
 
             localStorage.setItem('funtime-token', res._tokenResponse.oauthIdToken);
 
-            const result = await axios.post(`${config.serverUrl}/api/v1/user/login`, {
-                firebase_uid: uid,
-                email,
-                name: displayName
-            }, {
-                headers: { 
-                    Authorization: `Bearer ${res._tokenResponse.oauthIdToken}` 
-                }
-            })
+            const resUserData = await GetUserData(res.user, res._tokenResponse.oauthIdToken);
 
-            if (result.status !== 200) return;
-
-            setUserData(result.data);
+            setUserData(resUserData);
           
         } catch (err) {
             console.error(err);
@@ -77,10 +65,39 @@ export const useFirebase = () => {
                 position: 'bottom-center'
             })
         }
-    }    
+    }
+
+    const GetUserData = async (user, accessToken) => {
+        try {
+            const { uid, email, displayName } = user;
+
+            setUser(user);
+
+            const res = await axios.post(`${config.serverUrl}/api/v1/user/login`, {
+                firebase_uid: uid,
+                email,
+                name: displayName
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) return null;
+
+            setUserData(res.data);
+
+            return res.data;
+
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
+    }
 
     return {
         SignInWithGoogle,
         Logout,
+        GetUserData
     }
 }
