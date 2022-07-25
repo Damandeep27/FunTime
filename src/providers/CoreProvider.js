@@ -1,7 +1,9 @@
 import React, { useState, useContext, createContext, useRef } from 'react'
+import { io } from 'socket.io-client'
 
 export const CoreContext = createContext({})
 export const useCore = () => useContext(CoreContext)
+export const socket = io();
 
 export const CoreProvider = ({ children }) => {
     const [messages, setMessages] = useState([]);

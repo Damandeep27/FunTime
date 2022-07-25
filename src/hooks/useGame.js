@@ -1,9 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
-import { useCore } from 'providers/CoreProvider'
+import { useCore, socket } from 'providers/CoreProvider'
 import { useUser } from 'providers/UserProvider'
-import { io } from 'socket.io-client'
-
-const socket = io();
 
 let keyStateObj = {
     ArrowUp: false,
@@ -27,16 +24,19 @@ export const useGame = () => {
         canvasRef,
         ctxRef
     } = useCore();
+    const { userData } = useUser();
     const [players, setPlayers] = useState();
 
     // Player Class
     class Player {
         constructor(playerData) {
-            const { id, name, emoji, x, y, dX, dY, isJumping, dir, viewport } = playerData;
+            const { id, name, emoji, size, nameColor, x, y, dX, dY, isJumping, dir, viewport } = playerData;
 
             this.id = id;
             this.name = name;
             this.emoji = emoji;
+            this.size = size;
+            this.nameColor = nameColor;
             this.x = x;
             this.y = y;
             this.dX = dX;
@@ -50,35 +50,27 @@ export const useGame = () => {
             const { width: playerViewWidth, height: playerViewHeight } = this.viewport;
             const { width: curUserViewWidth, height: curUserViewHeight } = keyStateObj.viewport;
 
-            // if same viewport
-            if (playerViewWidth === curUserViewWidth && playerViewHeight === curUserViewHeight) {
-                ctx.font = '36px Poppins';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(this.emoji, this.x, this.y);
-    
-                ctx.font = '18px Poppins';
-                ctx.fillText(this.name, this.x, this.y - 40);
-            }
-            else { // if not same viewport
-                const curX = curUserViewWidth - (playerViewWidth - this.x);
-                const curY = curUserViewHeight - (playerViewHeight - this.y);
+            const sameViewport = playerViewWidth === curUserViewWidth && playerViewHeight === curUserViewHeight;
 
-                ctx.font = '36px Poppins';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(this.emoji, curX, curY);
-    
-                ctx.font = '18px Poppins';
-                ctx.fillText(this.name, curX, curY - 40);
-            }
+            const curX = this.x * curUserViewWidth / playerViewWidth;
+            const curY = curUserViewHeight - (playerViewHeight - this.y);
+
+            ctx.font = `${this.size.toString()}px Poppins`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(this.emoji, sameViewport ? this.x : curX, sameViewport ? this.y : curY);
+
+            ctx.font = '18px Poppins';
+            ctx.fillStyle = this.nameColor || 'black';
+            ctx.fillText(this.name, sameViewport ? this.x : curX, sameViewport ? this.y - (this.size + 2) : curY - (this.size + 2));
         }
 
         update(playerData) {
-            const { name, emoji, x, y, dX, dY, isJumping, dir, viewport } = playerData;
+            const { name, emoji, size, x, y, dX, dY, isJumping, dir, viewport } = playerData;
 
             this.name = name;
             this.emoji = emoji;
+            this.size = size;
             this.x = x;
             this.y = y;
             this.dX = dX;
@@ -115,11 +107,15 @@ export const useGame = () => {
 
     // Add player on user join
     useEffect(() => {
-        const emojiArr = [...'😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉'];
-        const emoji = emojiArr[Math.floor(Math.random() * emojiArr.length)];   
+        if (!userData) return;
+
+        const { player: { size, nameColor, emoji }, name } = userData;
+
         const newPlayer = {
-            name: 'Stephen', 
+            name, 
             emoji,
+            size,
+            nameColor,
             x: 48,
             y: 48,
             dX: 10, 
@@ -136,14 +132,13 @@ export const useGame = () => {
         socket.emit('add-player', newPlayer);
 
         return () => socket.off('add-player');
-    }, [])
+    }, [userData])
 
     // Update all players
     useEffect(() => {
         if (!players) return;
 
         socket.on('update-players', (playersObj) => {
-            console.log(playersObj)
             UpdatePlayers(playersObj);
         });
 

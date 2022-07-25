@@ -1,4 +1,6 @@
+require("dotenv").config();
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
@@ -8,6 +10,11 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'public/assets/js')
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': JSON.stringify(process.env)
+        })
+    ],
     module: {
         rules: [
             {
