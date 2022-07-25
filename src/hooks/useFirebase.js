@@ -23,6 +23,9 @@ export const useFirebase = () => {
     const toast = useToast();
     const { setUser, setUserData } = useUser();
 
+    /**
+     * Sign in with google oauth
+     */
     const SignInWithGoogle = async () => {
         try {
             const res = await signInWithPopup(auth, googleProvider);
@@ -48,6 +51,9 @@ export const useFirebase = () => {
         }
     }
 
+    /**
+     * Logout user from website
+     */
     const Logout = () => {
         try {
             localStorage.removeItem('funtime-token');
@@ -67,6 +73,12 @@ export const useFirebase = () => {
         }
     }
 
+    /**
+     * Get user data from mongodb
+     * @param {*} user user data from oauth 
+     * @param {*} accessToken accessToken from oauth
+     * @returns userData from mongodb as json
+     */
     const GetUserData = async (user, accessToken) => {
         try {
             const { uid, email, displayName } = user;

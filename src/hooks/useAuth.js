@@ -33,6 +33,10 @@ export const useAuth = ({ protect }) => {
         else if (!protect && user) navigate('/game');
     }, [user, loading]);
 
+    /**
+     * set userData state by getting it from mongodb
+     * @param {*} user user data from oauth
+     */
     const configureUser = async (user) => {
         try {
             setUser(user);
