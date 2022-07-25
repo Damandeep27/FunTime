@@ -23,22 +23,32 @@
 <a href='https://hub.docker.com/repository/docker/stephenasuncion/funtime' target="_blank">Docker Hub Repository: funtime</a>
 
 Installation with Docker Hub:
+
 ```
 docker pull stephenasuncion/funtime:main
 docker container run --name web -p 8080:8080 stephenasuncion/funtime:main
 ```
 
 Installation with Node.js:
+
 ```
 npm i 
-npm run dev
+npm run local
 ```
 
 ## Environment Variables
 
-| .env        |
-| ----------- |
-| MONGODB_URI |
+| .env        |             |
+| ----------- | ----------- |
+| MONGODB_URI | GOOGLE_CLIENT_ID |
+| FB_API_KEY | STRIPE_SECRET |
+| FB_AUTH_DOMAIN | TWILIO_ACCOUNT_SID |
+| FB_PROJECT_ID | TWILIO_AUTH_TOKEN |
+| FB_STORAGE_BUCKET | TWILIO_PHONE_NUMBER |
+| FB_SENDER_ID | MAILJET_API_KEY |
+| FB_APP_ID | MAILJET_API_SECRET |
+| FB_MEASUREMENT_ID ||
+
 
 ## Support
 
