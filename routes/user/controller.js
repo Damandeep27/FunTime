@@ -76,3 +76,39 @@ exports.setEmoji = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.deleteUser = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors.map(err => err.msg).join(', '));
+
+        const { userId } = req.body;
+
+        const result = await User.remove({ _id: userId });
+
+        res.status(200).json(result);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.setName = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors.map(err => err.msg).join(', '));
+
+        const { userId, name } = req.body;
+
+        await User.findOneAndUpdate({ _id: userId }, {
+            $set: {
+                name
+            }
+        })
+
+        res.status(200).json(name);
+
+    } catch (err) {
+        next(err);
+    }
+}

@@ -64,7 +64,7 @@ export const useShop = () => {
 
             if (!accessToken) throw new Error('Please re-login to Funtime');
 
-            const res = await axios.post(`${config.serverUrl}/api/v1/user/addEmoji`, {
+            const res = await axios.patch(`${config.serverUrl}/api/v1/user/addEmoji`, {
                 userId,
                 emoji
             }, {
@@ -142,7 +142,7 @@ export const useShop = () => {
 
             if (!accessToken) throw new Error('Please re-login to Funtime');
 
-            const res = await axios.post(`${config.serverUrl}/api/v1/user/setEmoji`, {
+            const res = await axios.patch(`${config.serverUrl}/api/v1/user/setEmoji`, {
                 userId: userData._id,
                 emoji
             }, {

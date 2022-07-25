@@ -71,6 +71,9 @@ export const useFirebase = () => {
 
     const Logout = () => {
         try {
+            localStorage.removeItem('funtime-token');
+            setUser(null);
+            setUserData(null);
             signOut(auth);
         } catch (err) {
             console.error(err);
