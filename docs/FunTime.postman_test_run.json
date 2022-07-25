@@ -1,0 +1,314 @@
+{
+	"id": "a6998f47-3dfb-4d38-9cb5-8251b5f9e6f4",
+	"name": "FunTime",
+	"timestamp": "2022-07-25T20:56:16.723Z",
+	"collection_id": "21931968-5872418f-6c5c-42b6-b1c9-dd95d26f7363",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 16,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "510f064f-0d1d-4658-9d12-b74be6613719",
+			"name": "Create Session",
+			"url": "http://localhost:8080/api/v1/payment/createCheckout",
+			"time": 942,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Provides checkout session url": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Provides checkout session url": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				942
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Provides checkout session url": true
+				}
+			]
+		},
+		{
+			"id": "553d7b6f-2231-4d98-9f5f-cb57bae886be",
+			"name": "Get Session",
+			"url": "http://localhost:8080/api/v1/payment/getSession?sessionId=cs_test_a1g3XS6LIaSpCSSdhvX5zD4BjOwVgJct10LBZDdzkO6RiFB0KmOIdmjYiU",
+			"time": 200,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Sessions total amount is 6000": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Sessions total amount is 6000": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				200
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Sessions total amount is 6000": true
+				}
+			]
+		},
+		{
+			"id": "2a279364-dff2-4976-9fa8-9fb8067e4a3f",
+			"name": "Login",
+			"url": "http://localhost:8080/api/v1/user/login",
+			"time": 83,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"User email is stephenasuncion01@gmail.com": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"User email is stephenasuncion01@gmail.com": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				83
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"User email is stephenasuncion01@gmail.com": true
+				}
+			]
+		},
+		{
+			"id": "4f9843fb-fd94-4f6f-b1df-dd523b7d24e5",
+			"name": "Set Name",
+			"url": "http://localhost:8080/api/v1/user/setName",
+			"time": 85,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"User email is stephenasuncion01@gmail.com": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"User email is stephenasuncion01@gmail.com": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				85
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"User email is stephenasuncion01@gmail.com": true
+				}
+			]
+		},
+		{
+			"id": "6f1bd846-db3b-4f39-b95d-bde314eb0025",
+			"name": "Add Emoji",
+			"url": "http://localhost:8080/api/v1/user/addEmoji",
+			"time": 81,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Added emoji is skull": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Added emoji is skull": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				81
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Added emoji is skull": true
+				}
+			]
+		},
+		{
+			"id": "8e0897c0-cd3b-4612-805c-db74b2bdccae",
+			"name": "Set Emoji",
+			"url": "http://localhost:8080/api/v1/user/setEmoji",
+			"time": 84,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Set emoji is skull": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Set emoji is skull": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				84
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Set emoji is skull": true
+				}
+			]
+		},
+		{
+			"id": "198205e3-e50c-4432-a27c-54eefaed0a66",
+			"name": "Send Email",
+			"url": "http://localhost:8080/api/v1/user/sendEmail",
+			"time": 481,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Message is Successfully sent email": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is Successfully sent email": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				481
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Message is Successfully sent email": true
+				}
+			]
+		},
+		{
+			"id": "6b5cd7c8-e1cf-405c-82c7-52b47aacab5d",
+			"name": "Send SMS",
+			"url": "http://localhost:8080/api/v1/user/sendSMS",
+			"time": 497,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Message is Successfully sent sms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is Successfully sent sms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				497
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Message is Successfully sent sms": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 2453,
+	"collection": {
+		"requests": [
+			{
+				"id": "510f064f-0d1d-4658-9d12-b74be6613719",
+				"method": "POST"
+			},
+			{
+				"id": "553d7b6f-2231-4d98-9f5f-cb57bae886be",
+				"method": "GET"
+			},
+			{
+				"id": "2a279364-dff2-4976-9fa8-9fb8067e4a3f",
+				"method": "POST"
+			},
+			{
+				"id": "4f9843fb-fd94-4f6f-b1df-dd523b7d24e5",
+				"method": "PATCH"
+			},
+			{
+				"id": "6f1bd846-db3b-4f39-b95d-bde314eb0025",
+				"method": "PATCH"
+			},
+			{
+				"id": "8e0897c0-cd3b-4612-805c-db74b2bdccae",
+				"method": "PATCH"
+			},
+			{
+				"id": "198205e3-e50c-4432-a27c-54eefaed0a66",
+				"method": "POST"
+			},
+			{
+				"id": "6b5cd7c8-e1cf-405c-82c7-52b47aacab5d",
+				"method": "POST"
+			}
+		]
+	}
+}
