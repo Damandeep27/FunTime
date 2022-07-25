@@ -27,6 +27,10 @@ const UsersSchema = new Schema({
         emoji: {
             type: String,
             default: '🐭'
+        },
+        emojiOwned: {
+            type: Array,
+            default: []
         }
     }
 

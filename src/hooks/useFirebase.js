@@ -21,7 +21,7 @@ export const googleProvider = new GoogleAuthProvider();
   
 export const useFirebase = () => {
     const toast = useToast();
-    const { setUser } = useUser();
+    const { setUser, setUserData } = useUser();
 
     const SignInWithGoogle = async () => {
         try {
@@ -43,7 +43,9 @@ export const useFirebase = () => {
                 }
             })
 
-            if (result.status === 200) return;
+            if (result.status !== 200) return;
+
+            setUserData(result.data);
 
             toast({
                 title: 'Success',

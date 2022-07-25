@@ -6,7 +6,7 @@ exports.createCheckout = async (req, res, next) => {
         const errors = validationResult(req).errors;
         if (errors.length > 0) throw new Error(errors.map(err => err.msg).join(', '));
 
-        const { name, emoji, price } = req.body;
+        const { userId, name, emoji, price } = req.body;
 
         // create product
         const product = await stripe.products.create({
@@ -30,10 +30,32 @@ exports.createCheckout = async (req, res, next) => {
                 },
             ],
             mode: 'payment',
-            success_url: `http://localhost:8080/shop?success=true`,
+            success_url: `http://localhost:8080/shop?success=true&session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `http://localhost:8080/shop?canceled=true`,
+            metadata: {
+                emoji,
+                userId
+            }
         });
         
+        res.status(200).json(session);
+    }
+    catch (err) {
+        next(err);
+    }
+};
+
+exports.getSession = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors.map(err => err.msg).join(', '));
+
+        const { sessionId } = req.query;
+
+        const session = await stripe.checkout.sessions.retrieve(sessionId);
+        
+        if (!session) throw new Error('Session not found');
+
         res.status(200).json(session);
     }
     catch (err) {

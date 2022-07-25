@@ -18,6 +18,10 @@ exports.LoginValidator = [
 
 exports.CreateSessionValidator = [
 
+    // userId Validator
+    check('userId', 'userId is empty')
+    .notEmpty(),
+
     // name Validator
     check('name', 'name is empty')
     .notEmpty(),
@@ -28,6 +32,26 @@ exports.CreateSessionValidator = [
 
     // price Validator
     check('price', 'price is empty')
+    .notEmpty(),
+    
+];
+
+exports.GetSessionValidator = [
+
+    // sessionId Validator
+    check('sessionId', 'sessionId is empty')
+    .notEmpty(),
+    
+];
+
+exports.EmojiValidator = [
+
+    // userId Validator
+    check('userId', 'userId is empty')
+    .notEmpty(),
+
+    // emoji Validator
+    check('emoji', 'emoji is empty')
     .notEmpty(),
     
 ];

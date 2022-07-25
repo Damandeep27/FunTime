@@ -44,7 +44,7 @@ export const useAuth = ({ protect }) => {
 
             const { uid, email, displayName } = user;
 
-            const result = await axios.post(`${config.serverUrl}/api/v1/user/login`, {
+            const res = await axios.post(`${config.serverUrl}/api/v1/user/login`, {
                 firebase_uid: uid,
                 email,
                 name: displayName
@@ -54,7 +54,9 @@ export const useAuth = ({ protect }) => {
                 }
             })
 
-            setUserData(result.data);
+            if (res.status !== 200) return;
+
+            setUserData(res.data);
         }
         catch (err) {
             console.error(err);
