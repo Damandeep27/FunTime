@@ -23,6 +23,9 @@ exports.createCheckout = async (req, res, next) => {
             shipping_address_collection: {
                 allowed_countries: ['CA'],
             },
+            phone_number_collection: {
+                enabled: true,
+            },
             line_items: [
                 {
                     price: product.default_price,

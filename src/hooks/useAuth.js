@@ -3,15 +3,14 @@ import { useToast } from '@chakra-ui/react'
 import { useUser } from 'providers/UserProvider'
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from 'hooks/useFirebase'
-import axios from 'axios'
-import config from 'config/index'
+import { auth, useFirebase } from 'hooks/useFirebase'
 
 export const useAuth = ({ protect }) => {
     const toast = useToast();
     const { setUser, setUserData } = useUser();
     const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate();
+    const { GetUserData } = useFirebase();
 
     useEffect(() => {
         if (loading) return;
@@ -42,21 +41,9 @@ export const useAuth = ({ protect }) => {
 
             if (!accessToken) throw new Error('Please re-login to Funtime');
 
-            const { uid, email, displayName } = user;
+            const resUserData = await GetUserData(user, accessToken);
 
-            const res = await axios.post(`${config.serverUrl}/api/v1/user/login`, {
-                firebase_uid: uid,
-                email,
-                name: displayName
-            }, {
-                headers: { 
-                    Authorization: `Bearer ${accessToken}` 
-                }
-            })
-
-            if (res.status !== 200) return;
-
-            setUserData(res.data);
+            setUserData(resUserData);
         }
         catch (err) {
             console.error(err);

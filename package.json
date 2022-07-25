@@ -34,6 +34,7 @@
     "google-auth-library": "^8.1.1",
     "http": "^0.0.1-security",
     "mongoose": "^6.4.3",
+    "node-mailjet": "^5.1.0",
     "nodemon": "^2.0.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -46,6 +47,7 @@
     "socket.io-client": "^4.5.1",
     "stripe": "^9.14.0",
     "style-loader": "^3.3.1",
+    "twilio": "^3.80.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0"
