@@ -21,6 +21,9 @@ export const useProfile = () => {
 
     }, [userData]);
 
+    /**
+     * Set user's name
+     */
     const SaveName = async () => {
         try {
             setIsSaving(true);
@@ -73,6 +76,9 @@ export const useProfile = () => {
         }
     }
 
+    /**
+     * Delete user from website
+     */
     const Delete = async () => {
         try {
             const accessToken = localStorage.getItem('funtime-token');

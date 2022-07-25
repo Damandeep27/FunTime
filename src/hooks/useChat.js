@@ -33,6 +33,9 @@ export const useChat = () => {
         chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }, [messages])
 
+    /**
+     * Sends message in chat
+     */
     const SendMessage = async () => {
         try {
             if (!messageInput.trim().length) return;

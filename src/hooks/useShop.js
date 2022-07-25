@@ -22,6 +22,10 @@ export const useShop = () => {
 
     }, [userData]);
 
+    /**
+     * Get session data after stripe's checkout session
+     * @param {*} sessionId id of stripe's chekcout session
+     */
     const retrieveSession = async (sessionId) => {
         try {
             if (!userData) return;
@@ -97,6 +101,12 @@ export const useShop = () => {
         }
     }
 
+    /**
+     * Add emoji to user's emojis owned
+     * @param {*} userId user
+     * @param {*} emoji emoji being added to user's account
+     * @returns 
+     */
     const addEmojiToUser = async (userId, emoji) => {
         try {
             const accessToken = localStorage.getItem('funtime-token');
@@ -134,6 +144,10 @@ export const useShop = () => {
         }
     }
 
+    /**
+     * Send email
+     * @param {*} emailData { email, name, subject, html }
+     */
     const sendEmail = async (emailData) => {
         try {
             const accessToken = localStorage.getItem('funtime-token');
@@ -160,6 +174,10 @@ export const useShop = () => {
         }
     }
 
+    /**
+     * Send a text message
+     * @param {*} smsData { to, body }
+     */
     const sendSMS = async (smsData) => {
         try {
             const accessToken = localStorage.getItem('funtime-token');
@@ -185,6 +203,10 @@ export const useShop = () => {
         }
     }
 
+    /**
+     * Buy product from shop
+     * @param {*} product { name, emoji, price }
+     */
     const Buy = async (product) => {
         try {
             setIsBuying(true);
@@ -226,6 +248,10 @@ export const useShop = () => {
         }
     }
 
+    /**
+     * Use product from shop
+     * @param {*} emoji an emoji
+     */
     const Use = async (emoji) => {
         try {
             setIsUsing(true);

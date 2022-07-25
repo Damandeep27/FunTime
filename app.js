@@ -60,6 +60,7 @@ connection.once('open', () => {
     io.on('connection', (socket) => {
         console.log(`[FunTime] user <${socket.id}> connected`);
 
+        // Socket Listeners
         socket.on('add-player', addPlayer);
         socket.on('move-player', movePlayer);
         socket.on('send-message', sendMessage);
