@@ -46,15 +46,6 @@ export const useFirebase = () => {
             if (result.status !== 200) return;
 
             setUserData(result.data);
-
-            toast({
-                title: 'Success',
-                description: 'Successfuly signed in',
-                status: 'success',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
           
         } catch (err) {
             console.error(err);

@@ -25,18 +25,11 @@ const Navbar = ({ page, onProfile, onChat }) => {
                 <HStack spacing='1em'>
                     {{
                         main: (
-                            <>
-                            <RouteLink to='#features'>
-                                <Button variant='transparent'>
-                                    Features
-                                </Button>
-                            </RouteLink>
                             <RouteLink to='/login'>
                                 <Button variant='primary' boxShadow='md'>
                                     Get started
                                 </Button>
                             </RouteLink>
-                            </>
                         ),
                         game: (
                             <>
