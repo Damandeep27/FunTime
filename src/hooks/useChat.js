@@ -1,10 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useToast } from '@chakra-ui/react'
-import { useCore } from 'providers/CoreProvider'
+import { useCore, socket } from 'providers/CoreProvider'
 import { useUser } from 'providers/UserProvider'
-import { io } from 'socket.io-client'
-
-const socket = io();
 
 export const useChat = () => {
     const toast = useToast();
@@ -16,7 +13,7 @@ export const useChat = () => {
         setMessageInput,
         setMessages
     } = useCore();
-    // const { } = useUser();
+    const { userData } = useUser();
 
     useEffect(() => {
         socket.on("receive-message", (data) => {
@@ -38,12 +35,13 @@ export const useChat = () => {
 
     const SendMessage = async () => {
         try {
-            if (messageInput.trim().length === 0) return;
+            if (!messageInput.trim().length) return;
+            if (messageInput.trim().length > 32) throw new Error('Max message length is 32 characters');
 
             setIsSending(true);
 
             const messageData = {
-                author: 'Stephen',
+                author: userData.name,
                 message: messageInput,
             }
 

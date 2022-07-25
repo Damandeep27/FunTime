@@ -1,6 +1,12 @@
-const router=require('express').Router({mergeParams:true});
-const {createCheckout} = require('./controller');
+const router = require('express').Router();
+const { createCheckout, getSession } = require('./controller');
+const { authenticateToken } = require('#middlewares/authenticator.js'); 
+const { 
+    CreateSessionValidator,
+    GetSessionValidator
+} = require('#middlewares/validators.js');
 
-router.post('/create-checkout-session',createCheckout)
+router.post('/createCheckout', authenticateToken, CreateSessionValidator, createCheckout);
+router.get('/getSession', authenticateToken, GetSessionValidator, getSession);
 
 module.exports = router;

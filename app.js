@@ -1,5 +1,5 @@
 // Dependencies
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 const path = require('path');
 const express = require("express");
 const cors = require('cors');
@@ -43,25 +43,17 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended:true }));
 app.use(express.json());
 app.use('/api/v1',router);
-
 app.use(errorHandler);
-
-
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
-
-
-
-
-
 
 // Connections
 connection.once('open', () => {
     console.log("[FunTime] Connected to MongoDB")
 
-    server.listen(process.env.PORT || 3000, () => {
-        console.log(`[FunTime] listening at http://localhost:${process.env.PORT || 3000}`)
+    server.listen(process.env.PORT || 8080, () => {
+        console.log(`[FunTime] listening at http://localhost:${process.env.PORT || 8080}`)
     })
 
     // Web Socket Connection
@@ -73,8 +65,4 @@ connection.once('open', () => {
         socket.on('send-message', sendMessage);
         socket.on('disconnect', disconnect);
     });
-
-
-
-    
 });

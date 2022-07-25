@@ -28,7 +28,7 @@ const Landing = () => {
                                                 Get Started 🚀
                                             </Button>
                                         </RouteLink>
-                                        <Link href='https://www.youtube.com/channel/UCmKzlQCcDv-fern-Zv8vQ0w/videos' isExternal>
+                                        <Link href='https://www.youtube.com/watch?v=8T4koaq5zUw' isExternal>
                                             <Button>
                                                 Watch Video
                                             </Button>
@@ -58,8 +58,8 @@ const Landing = () => {
                                             </Text>
                                             <VStack alignItems='flex-start' mt='.5em'>
                                                 <Text>Global Server</Text>
-                                                <Text>Multiple Hangout Rooms</Text>
-                                                <Text>Customizable Characters</Text>
+                                                <Text>Chat Room</Text>
+                                                <Text>Customizable Players</Text>
                                                 <Text>Real-time interaction with other people</Text>
                                             </VStack>
                                         </Flex>

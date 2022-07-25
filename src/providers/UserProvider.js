@@ -4,9 +4,14 @@ export const UserContext = createContext({})
 export const useUser = () => useContext(UserContext)
 
 export const UserProvider = ({ children }) => {
+    const [user, setUser] = useState();
+    const [userData, setUserData] = useState();
 
     const controllers = {
-        
+        user,
+        setUser,
+        userData,
+        setUserData
     }
 
     return (
