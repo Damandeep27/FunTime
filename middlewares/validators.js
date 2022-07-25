@@ -55,3 +55,23 @@ exports.EmojiValidator = [
     .notEmpty(),
     
 ];
+
+exports.DeleteValidator = [
+
+    // userId Validator
+    check('userId', 'userId is empty')
+    .notEmpty(),
+    
+];
+
+exports.SetNameValidator = [
+
+    // userId Validator
+    check('userId', 'userId is empty')
+    .notEmpty(),
+
+    // name Validator
+    check('name', 'name is empty')
+    .notEmpty(),
+
+]
