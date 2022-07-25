@@ -33,8 +33,8 @@ exports.createCheckout = async (req, res, next) => {
                 },
             ],
             mode: 'payment',
-            success_url: `http://fun--time.herokuapp.com/shop?success=true&session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `http://fun--time.herokuapp.com/shop?canceled=true`,
+            success_url: `https://fun--time.herokuapp.com/shop?success=true&session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `https://fun--time.herokuapp.com/shop?canceled=true`,
             metadata: {
                 emoji,
                 userId

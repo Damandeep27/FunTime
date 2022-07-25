@@ -85,7 +85,7 @@ export const useShop = () => {
 
             await sendSMS({
                 to: phone,
-                body: `FunTime - Order Confirmation. You paid ${(amount_total / 100).toFixed(2)} by purchasing: ${emoji}.`,
+                body: `FunTime - Order Confirmation. You paid $${(amount_total / 100).toFixed(2)} by purchasing: ${emoji}.`,
             })
         }
         catch (err) {

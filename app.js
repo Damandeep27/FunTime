@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended:true }));
 app.use(express.json());
-app.use('/api/v1',router);
+app.use('/api/v1', router);
 app.use(errorHandler);
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
