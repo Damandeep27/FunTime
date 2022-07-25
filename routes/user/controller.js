@@ -14,10 +14,10 @@ exports.login = async (req, res, next) => {
         const errors = validationResult(req).errors;
         if (errors.length > 0) throw new Error(errors.map(err => err.msg).join(', '));
 
-        const { firebase_uid } = req.body;
+        const { email } = req.body;
 
         // check if user already exist
-        let user = await User.findOne({ firebase_uid });
+        let user = await User.findOne({ email });
 
         // if user doesnt exist create one
         if (!user) {
@@ -50,13 +50,10 @@ exports.addEmoji = async (req, res, next) => {
                 $push: {
                     'player.emojiOwned': emoji
                 }
-            }, 
-            {
-                new: true
             }
         )
 
-        res.status(200).json(user);
+        res.status(200).json(emoji);
 
     } catch (err) {
         next(err);
