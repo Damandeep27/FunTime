@@ -13,7 +13,7 @@ const Landing = () => {
                 <Navbar page='main' />
                 <main>
                     <Flex justifyContent='center' w='full'>
-                        <Flex flexDir='column' alignItems='center' h='full' justifyContent='center' maxW='1200px' w='full'>
+                        <Flex flexDir='column' alignItems='center' h='full' justifyContent='center' maxW='1200px' w='full' mx='2em'>
                             <SlideFade in={true} offsetY='-20px' delay={.45} style={{ width: '100%' }}>
                                 <Flex flexDir='column' alignItems='center' mt='10em'>
                                     <Text fontSize='48pt' fontWeight='bold' textAlign='center'>

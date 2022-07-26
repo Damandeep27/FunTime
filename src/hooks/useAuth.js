@@ -7,11 +7,12 @@ import { auth, useFirebase } from 'hooks/useFirebase'
 
 export const useAuth = ({ protect }) => {
     const toast = useToast();
-    const { setUser, setUserData } = useUser();
+    const { userData } = useUser();
     const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate();
     const { GetUserData } = useFirebase();
 
+    // ReAuthenticate
     useEffect(() => {
         if (loading) return;
 
@@ -27,38 +28,14 @@ export const useAuth = ({ protect }) => {
             return;
         }
 
-        if (user) configureUser(user);
+        if (user && !userData) GetUserData(user);
 
-        if (protect && !user) navigate('/');
-        else if (!protect && user) navigate('/game');
-    }, [user, loading]);
-
-    /**
-     * set userData state by getting it from mongodb
-     * @param {*} user user data from oauth
-     */
-    const configureUser = async (user) => {
-        try {
-            setUser(user);
-
-            const accessToken = localStorage.getItem('funtime-token');
-
-            if (!accessToken) throw new Error('Please re-login to Funtime');
-
-            const resUserData = await GetUserData(user, accessToken);
-
-            setUserData(resUserData);
+        if (!user && protect) {
+            navigate('/');
+            return;
         }
-        catch (err) {
-            console.error(err);
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
-        }
-    }
+        
+        if (userData && !protect) navigate('/game');
+
+    }, [user, error, loading, userData])
 }

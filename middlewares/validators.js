@@ -16,6 +16,14 @@ exports.LoginValidator = [
     
 ];
 
+exports.GetByEmailValidator = [
+
+    // email Validator
+    check('email', 'email is empty')
+    .notEmpty(),
+    
+];
+
 exports.CreateSessionValidator = [
 
     // userId Validator

@@ -6,12 +6,15 @@ export const useUser = () => useContext(UserContext)
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState();
     const [userData, setUserData] = useState();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const controllers = {
         user,
         setUser,
         userData,
-        setUserData
+        setUserData,
+        isLoggedIn,
+        setIsLoggedIn
     }
 
     return (
