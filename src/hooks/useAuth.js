@@ -14,6 +14,8 @@ export const useAuth = ({ protect }) => {
 
     // ReAuthenticate
     useEffect(() => {
+        if (loading) return;
+
         if (error) {
             toast({
                 title: 'Error',
@@ -35,5 +37,5 @@ export const useAuth = ({ protect }) => {
         
         if (userData && !protect) navigate('/game');
 
-    }, [user, error, userData])
+    }, [user, error, loading, userData])
 }

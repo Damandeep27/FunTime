@@ -108,7 +108,7 @@ exports.deleteUser = async (req, res, next) => {
 
         const { userId } = req.body;
 
-        const result = await User.remove({ _id: userId });
+        const result = await User.deleteOne({ _id: userId });
 
         res.status(200).json(result);
 
