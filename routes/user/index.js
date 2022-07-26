@@ -6,7 +6,8 @@ const {
     deleteUser, 
     setName, 
     sendEmail, 
-    sendSMS 
+    sendSMS,
+    getByEmail
 } = require('./controller');
 const { authenticateToken } = require('#middlewares/authenticator.js'); 
 const { 
@@ -15,10 +16,12 @@ const {
     DeleteValidator,
     SetNameValidator,
     SendEmailValidator,
-    SendSMSValidator
+    SendSMSValidator,
+    GetByEmailValidator
 } = require('#middlewares/validators.js');
 
 router.post('/login', authenticateToken, LoginValidator, login);
+router.get('/getByEmail', authenticateToken, GetByEmailValidator, getByEmail);
 router.patch('/setName', authenticateToken, SetNameValidator, setName);
 router.patch('/addEmoji', authenticateToken, EmojiValidator, addEmoji);
 router.patch('/setEmoji', authenticateToken, EmojiValidator, setEmoji);

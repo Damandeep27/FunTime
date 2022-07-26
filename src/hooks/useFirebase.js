@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { useToast } from '@chakra-ui/react'
 import { useUser } from 'providers/UserProvider'
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import config from 'config/index'
 
@@ -21,7 +22,8 @@ export const googleProvider = new GoogleAuthProvider();
   
 export const useFirebase = () => {
     const toast = useToast();
-    const { setUser, setUserData } = useUser();
+    const navigate = useNavigate();
+    const { setUser, setUserData, setIsLoggedIn } = useUser();
 
     /**
      * Sign in with google oauth
@@ -30,13 +32,25 @@ export const useFirebase = () => {
         try {
             const res = await signInWithPopup(auth, googleProvider);
             
-            setUser(res.user);
-
             localStorage.setItem('funtime-token', res._tokenResponse.oauthIdToken);
 
-            const resUserData = await GetUserData(res.user, res._tokenResponse.oauthIdToken);
+            setUser(res.user);
 
-            setUserData(resUserData);
+            const { uid, email, displayName } = res.user;
+
+            const res2 = await axios.post(`${config.serverUrl}/api/v1/user/login`, {
+                firebase_uid: uid,
+                email,
+                name: displayName
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${res._tokenResponse.oauthIdToken}` 
+                }
+            })
+
+            setUserData(res2.data);
+
+            setIsLoggedIn(true);
           
         } catch (err) {
             console.error(err);
@@ -60,6 +74,7 @@ export const useFirebase = () => {
             setUser(null);
             setUserData(null);
             signOut(auth);
+            navigate('/');
         } catch (err) {
             console.error(err);
             toast({
@@ -79,17 +94,20 @@ export const useFirebase = () => {
      * @param {*} accessToken accessToken from oauth
      * @returns userData from mongodb as json
      */
-    const GetUserData = async (user, accessToken) => {
+    const GetUserData = async (user) => {
         try {
-            const { uid, email, displayName } = user;
+            const { email } = user;
+
+            const accessToken = localStorage.getItem('funtime-token');
+
+            if (!accessToken) throw new Error('Please re-login to Funtime');
 
             setUser(user);
 
-            const res = await axios.post(`${config.serverUrl}/api/v1/user/login`, {
-                firebase_uid: uid,
-                email,
-                name: displayName
-            }, {
+            const res = await axios.get(`${config.serverUrl}/api/v1/user/getByEmail`, {
+                params: {
+                    email
+                },
                 headers: { 
                     Authorization: `Bearer ${accessToken}` 
                 }

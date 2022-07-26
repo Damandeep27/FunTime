@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "5872418f-6c5c-42b6-b1c9-dd95d26f7363",
 		"name": "FunTime",
+		"description": "FunTime is a website where you and your friends can meet new people in a unique way.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21931968"
 	},
@@ -57,7 +58,8 @@
 								"payment",
 								"createCheckout"
 							]
-						}
+						},
+						"description": "Creates a stripe checkout session that will generate a hosted payment URL from stripe."
 					},
 					"response": []
 				},
@@ -103,15 +105,63 @@
 									"value": "{{SESSION_ID}}"
 								}
 							]
-						}
+						},
+						"description": "Get session data by session id"
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Routes related to payments"
 		},
 		{
 			"name": "User Route",
 			"item": [
+				{
+					"name": "Get User By Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User email is stephenasuncion01@gmail.com\", function () {\r",
+									"    const { email } = pm.response.json();\r",
+									"    pm.expect(email).to.eql('stephenasuncion01@gmail.com');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/getByEmail?email=stephenasuncion01@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"getByEmail"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "stephenasuncion01@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Login",
 					"event": [
@@ -157,7 +207,8 @@
 								"user",
 								"login"
 							]
-						}
+						},
+						"description": "Creates a user data if it does not exist"
 					},
 					"response": []
 				},
@@ -172,7 +223,7 @@
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
-									"pm.test(\"User email is stephenasuncion01@gmail.com\", function () {\r",
+									"pm.test(\"User name is Typedef\", function () {\r",
 									"    const name = pm.response.json();\r",
 									"    pm.expect(name).to.eql(\"Typedef\");\r",
 									"});"
@@ -206,7 +257,8 @@
 								"user",
 								"setName"
 							]
-						}
+						},
+						"description": "Set user's name"
 					},
 					"response": []
 				},
@@ -235,7 +287,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"62de3ee7e0fb0e2090a6bb7c\",\r\n    \"emoji\": \"💀\"\r\n}",
+							"raw": "{\r\n    \"userId\": \"62e05efb2593625d70a0f840\",\r\n    \"emoji\": \"💀\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -255,7 +307,8 @@
 								"user",
 								"addEmoji"
 							]
-						}
+						},
+						"description": "Add emoji owned by user"
 					},
 					"response": []
 				},
@@ -284,7 +337,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"62de3ee7e0fb0e2090a6bb7c\",\r\n    \"emoji\": \"💀\"\r\n}",
+							"raw": "{\r\n    \"userId\": \"62e05efb2593625d70a0f840\",\r\n    \"emoji\": \"💀\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -304,7 +357,8 @@
 								"user",
 								"setEmoji"
 							]
-						}
+						},
+						"description": "Set user's current emoji"
 					},
 					"response": []
 				},
@@ -353,7 +407,8 @@
 								"user",
 								"sendEmail"
 							]
-						}
+						},
+						"description": "Send email"
 					},
 					"response": []
 				},
@@ -402,11 +457,13 @@
 								"user",
 								"sendSMS"
 							]
-						}
+						},
+						"description": "Send SMS"
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Routes related to user"
 		}
 	],
 	"auth": {
