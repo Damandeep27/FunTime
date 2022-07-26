@@ -32,6 +32,25 @@ exports.login = async (req, res, next) => {
     }
 }
 
+exports.getByEmail = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors.map(err => err.msg).join(', '));
+
+        const { email } = req.query;
+
+        // check if user already exist
+        const user = await User.findOne({ email });
+
+        if (!user) throw new Error('User not found')
+
+        res.status(200).json(user);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 exports.addEmoji = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;

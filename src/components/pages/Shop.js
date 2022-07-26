@@ -58,7 +58,7 @@ const Checkout = () => {
         session
     } = useShop();
     const { userData } = useUser();
-    useAuth({ protect: true });
+    //useAuth({ protect: true });
     
     return (
         <>
