@@ -73,7 +73,7 @@ const Checkout = () => {
                         {userData?.player?.emoji}
                     </Text>
                 </HStack>
-                <Wrap spacing='50px' my='3em' mx='1em'>
+                <Wrap spacing='50px' my='3em' mx='1em' justify='center'>
                     <WrapItem p='2em' maxW='400px' w='full'>
                         <VStack w='full' alignItems='center' justifyContent='center'>
                             <Text fontSize='6xl'>🐭</Text>
@@ -129,7 +129,7 @@ const Checkout = () => {
                 </Wrap>
                 </>
             ) : (
-                <Center h={"500px"} >
+                <Center h='500px' >
                     <Flex flexDir='column' alignItems='center'>
                         <AiFillCheckCircle fontSize='30px' color='rgb(19,203,172)' />
                         <Text fontSize='30px' fontWeight='bold' color='rgb(19,203,172)'>
