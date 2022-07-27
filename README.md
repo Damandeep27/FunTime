@@ -36,18 +36,15 @@ npm i
 npm run local
 ```
 
-## Environment Variables
+## Links
 
-| .env        |             |
-| ----------- | ----------- |
-| MONGODB_URI | GOOGLE_CLIENT_ID |
-| FB_API_KEY | STRIPE_SECRET |
-| FB_AUTH_DOMAIN | TWILIO_ACCOUNT_SID |
-| FB_PROJECT_ID | TWILIO_AUTH_TOKEN |
-| FB_STORAGE_BUCKET | TWILIO_PHONE_NUMBER |
-| FB_SENDER_ID | MAILJET_API_KEY |
-| FB_APP_ID | MAILJET_API_SECRET |
-| FB_MEASUREMENT_ID ||
+<ul>
+<li><a href='https://github.com/Damandeep27/FunTime/blob/main/docs/FunTime-Full-Report.docx' target="_blank">FunTime's Full Report</a></li>
+<li><a href='https://github.com/Damandeep27/FunTime/blob/main/docs/FunTime.postman_collection.json' target="_blank">Postman Exported Collection</a></li>
+<li><a href='https://github.com/Damandeep27/FunTime/blob/main/docs/FunTime.postman_test_run.json' target="_blank">Postman Test Run Result</a></li>
+<li><a href='https://hub.docker.com/repository/docker/stephenasuncion/funtime' target="_blank">DockerHub Repository</a></li>
+<li><a href='https://github.com/Damandeep27/FunTime' target="_blank">GitHub Repository</a></li>
+</ul>
 
 
 ## Support
