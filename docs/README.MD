@@ -9,6 +9,7 @@
 ## Contents
 
 <ul>
+<li><a href='https://github.com/Damandeep27/FunTime/blob/main/docs/FunTime-Full-Report.docx' target="_blank">FunTime's Full Report</a></li>
 <li><a href='https://github.com/Damandeep27/FunTime/blob/main/docs/FunTime.postman_collection.json' target="_blank">Postman Exported Collection</a></li>
 <li><a href='https://github.com/Damandeep27/FunTime/blob/main/docs/FunTime.postman_test_run.json' target="_blank">Postman Test Run Result</a></li>
 </ul>
