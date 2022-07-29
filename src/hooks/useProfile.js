@@ -3,7 +3,6 @@ import { useToast } from '@chakra-ui/react'
 import { useUser } from 'providers/UserProvider'
 import { useFirebase } from 'hooks/useFirebase'
 import axios from 'axios'
-import config from 'config/index'
 
 export const useProfile = () => {
     const toast = useToast();
@@ -36,7 +35,7 @@ export const useProfile = () => {
 
             if (nameInput.length > 25) throw new Error('Maximum length of name is 25 characters');
 
-            const res = await axios.patch(`${config.serverUrl}/api/v1/user/setName`, {
+            const res = await axios.patch(`https://fun--time.herokuapp.com/api/v1/user/setName`, {
                 userId: userData._id,
                 name: nameInput
             }, {

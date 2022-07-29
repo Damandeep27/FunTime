@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useUser } from 'providers/UserProvider'
 import axios from 'axios'
-import config from 'config/index'
 
 export const useShop = () => {
     const toast = useToast();
@@ -113,7 +112,7 @@ export const useShop = () => {
 
             if (!accessToken) throw new Error('Please re-login to Funtime');
 
-            const res = await axios.patch(`${config.serverUrl}/api/v1/user/addEmoji`, {
+            const res = await axios.patch(`https://fun--time.herokuapp.com/api/v1/user/addEmoji`, {
                 userId,
                 emoji
             }, {
@@ -154,7 +153,7 @@ export const useShop = () => {
 
             if (!accessToken) throw new Error('Please re-login to Funtime');
 
-            await axios.post(`${config.serverUrl}/api/v1/user/sendEmail`, 
+            await axios.post(`https://fun--time.herokuapp.com/api/v1/user/sendEmail`, 
                 emailData, {
                 headers: { 
                     Authorization: `Bearer ${accessToken}` 
@@ -184,7 +183,7 @@ export const useShop = () => {
 
             if (!accessToken) throw new Error('Please re-login to Funtime');
 
-            await axios.post(`${config.serverUrl}/api/v1/user/sendSMS`, smsData, {
+            await axios.post(`https://fun--time.herokuapp.com/api/v1/user/sendSMS`, smsData, {
                 headers: { 
                     Authorization: `Bearer ${accessToken}` 
                 }
@@ -217,7 +216,7 @@ export const useShop = () => {
 
             if (!accessToken || !userData) throw new Error('Please re-login to Funtime');
 
-            const res = await axios.post(`${config.serverUrl}/api/v1/payment/createCheckout`, {
+            const res = await axios.post(`https://fun--time.herokuapp.com/api/v1/payment/createCheckout`, {
                 userId: userData._id,
                 name,
                 emoji,
@@ -260,7 +259,7 @@ export const useShop = () => {
 
             if (!accessToken) throw new Error('Please re-login to Funtime');
 
-            const res = await axios.patch(`${config.serverUrl}/api/v1/user/setEmoji`, {
+            const res = await axios.patch(`https://fun--time.herokuapp.com/api/v1/user/setEmoji`, {
                 userId: userData._id,
                 emoji
             }, {

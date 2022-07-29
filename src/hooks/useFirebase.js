@@ -4,7 +4,6 @@ import { useUser } from 'providers/UserProvider'
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import config from 'config/index'
 
 const firebaseConfig = {
     apiKey: process.env.FB_API_KEY,
@@ -38,7 +37,7 @@ export const useFirebase = () => {
 
             const { uid, email, displayName } = res.user;
 
-            const res2 = await axios.post(`${config.serverUrl}/api/v1/user/login`, {
+            const res2 = await axios.post(`https://fun--time.herokuapp.com/api/v1/user/login`, {
                 firebase_uid: uid,
                 email,
                 name: displayName
@@ -104,7 +103,7 @@ export const useFirebase = () => {
 
             setUser(user);
 
-            const res = await axios.get(`${config.serverUrl}/api/v1/user/getByEmail`, {
+            const res = await axios.get(`https://fun--time.herokuapp.com/api/v1/user/getByEmail`, {
                 params: {
                     email
                 },
