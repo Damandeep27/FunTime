@@ -17,6 +17,15 @@ exports.createCheckout = async (req, res, next) => {
             }
         });
     
+        const environment = {
+            development: {
+                frontendUrl: 'http://localhost:8080',
+            },
+            production: {
+                frontendUrl: 'https://fun--time.herokuapp.com',
+            }
+        }[process.env.NODE_ENV || 'development'];
+
         // create checkout session
         const session = await stripe.checkout.sessions.create({
             billing_address_collection: 'auto',
@@ -33,8 +42,8 @@ exports.createCheckout = async (req, res, next) => {
                 },
             ],
             mode: 'payment',
-            success_url: `http://localhost:8080/shop?success=true&session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `http://localhost:8080/shop?canceled=true`,
+            success_url: `${environment.frontendUrl}/shop?success=true&session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${environment.frontendUrl}/shop?canceled=true`,
             metadata: {
                 emoji,
                 userId
