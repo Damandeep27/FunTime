@@ -37,7 +37,7 @@ export const useShop = () => {
 
             if (!accessToken) throw new Error('Please re-login to Funtime');
 
-            const res = await axios.get(`${config.serverUrl}/api/v1/payment/getSession`, {
+            const res = await axios.get(`https://fun--time.herokuapp.com/api/v1/payment/getSession`, {
                 params: {
                     sessionId
                 },
