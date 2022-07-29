@@ -1,11 +1,12 @@
 import development from './dev';
 import production from './prod';
 
-const configurationMap = {
-	development,
-	production
-};
+const isDev = () => {
+    console.log('[FunTime] running on', process.env.NODE_ENV);
 
-const config = configurationMap[process.env.NODE_ENV];
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') return development;
 
-export default config;
+    return production;
+}
+
+export default isDev;
