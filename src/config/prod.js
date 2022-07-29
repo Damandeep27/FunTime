@@ -1,7 +1,6 @@
-export default {
+const production = {
     frontendUrl: 'https://fun--time.herokuapp.com',
-	serverUrl: 'https://fun--time.herokuapp.com',
-    stripe: {
-        publicKey: ''
-    }
+	serverUrl: 'https://fun--time.herokuapp.com'
 }
+
+export default production
