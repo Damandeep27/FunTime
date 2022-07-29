@@ -6,7 +6,7 @@ import axios from 'axios'
 
 export const useProfile = () => {
     const toast = useToast();
-    const { userData, setUserData, setUser } = useUser();
+    const { userData, setUserData } = useUser();
     const [name, setName] = useState('');
     const [isSaving, setIsSaving] = useState(false);
     const { Logout } = useFirebase();
@@ -84,7 +84,7 @@ export const useProfile = () => {
 
             if (!accessToken) throw new Error('Please re-login to Funtime');
 
-            const res = await axios.delete(`${config.serverUrl}/api/v1/user/delete`, {
+            const res = await axios.delete(`https://fun--time.herokuapp.com/api/v1/user/delete`, {
                 data: {
                     userId: userData._id
                 },
